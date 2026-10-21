@@ -2,8 +2,13 @@
 
 The running Editor is driven only through `unity command ...` (`com.unity.pipeline`, experimental;
 version per `Packages/manifest.json`). Never use `mcp__unityMCP__*`; everything is reachable through a
-dedicated command or `eval`. Run from the project root or pass `--project-path`. Long form and
-`eval` recipes: `docs/stack/unity-editor-cli.md`.
+dedicated command or `eval`. Long form and `eval` recipes: `docs/stack/unity-editor-cli.md`.
+
+- **Target this project explicitly.** Several Editors may run at once and auto-detection picks any of
+  them: a delete meant for this project once landed in another one. `UNITY_PROJECT_PATH` (set per
+  machine in `.claude/settings.local.json` `env`) covers it; when it is not set, put
+  `--project-path "<repo root>"` after the subcommand (`unity command eval --project-path "..."`), and
+  check `projectPath` in `editor_status` before the first mutating call.
 
 - Tests: `unity command run_tests --mode EditMode`. The result is in the response; `test_status`
   reports `no_tests` afterwards.

@@ -49,13 +49,12 @@ those folders copy verbatim; everything game-specific lives in the project card 
    calling the SDK installer and `RegisterObjectPool` with its own `PoolCatalogSO`; Boot runs the
    `IBootStep`s. Boot also calls `R3.ObservableSystem.RegisterUnhandledExceptionHandler(Debug.LogException)`.
 6. **Hooks**: `chmod +x .claude/hooks/*.sh .claude/skills/*/scripts/*.sh`; append the project's
-   vendor folders to `.claude/hooks/protected-paths.txt`; replace the entries of
-   `.claude/hooks/invariant-paths.txt` with the game's own invariants (prefix, doc, open question;
-   see `agent-workflow.md`); confirm `perl`, `git` and `jq` (or `python3`, enough for the hooks
-   but not for `/retro`) run on `PATH`.
+   vendor folders to `.claude/hooks/protected-paths.txt`; set `env.UNITY_PROJECT_PATH` to the
+   checkout's absolute path in `.claude/settings.local.json` (several Editors may run at once);
+   confirm `perl`, `git` and `python3` (`jq` optional; `/retro` needs it) run on `PATH`.
 7. **Branches**: create `develop` from the first commit and push it; `master` stays the release
    branch. No hook guards them: the team keeps both clean by convention (`git-workflow.md`). If the
-   host refuses those names, change them in `.claude/rules/commits.md`, `/task`, `/lead` and `/finish`.
+   host refuses those names, change them in `.claude/rules/commits.md`, `/task`, `/minigame` and `/finish`.
 8. **Codex**: copy `.codex/` without an MCP server entry (the rules forbid it); run
    `.claude/hooks/build-agents-md.sh` to generate `AGENTS.md`.
 9. **Playables** (optional): `npm install` in `Playables/` (Node 20+), `npm run build -- _template && npm run

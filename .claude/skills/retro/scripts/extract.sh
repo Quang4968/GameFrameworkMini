@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Condenses this project's Claude Code transcripts (and its worktrees') from the last N days into
 # the signals a retro needs: user prompts, interrupts, AskUserQuestion answers, denied tool calls,
-# hook blocks and hook feedback (tests reminder, supervisor questions). One block per session.
+# hook blocks and hook feedback (Stop hook messages). One block per session.
 #   extract.sh [days=7] [project-dir=$CLAUDE_PROJECT_DIR or cwd]
 set -uo pipefail
 

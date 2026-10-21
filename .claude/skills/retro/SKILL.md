@@ -16,7 +16,7 @@ Run `"${CLAUDE_SKILL_DIR}/scripts/extract.sh" <days>` (the argument, default 7) 
 redirected to a file in your scratch directory. It covers this checkout and its `.claude/worktrees/*` sessions. Each session is a `## <title>`
 block of timestamped lines: `PROMPT`, `COMMAND`, `ANSWER` (AskUserQuestion answer `<=` question),
 `INTERRUPT`, `DENIED` (permission or hook), `BLOCK` (hook error in a tool result), `HOOK` (Stop
-feedback: tests reminder, supervisor questions). Read it in slices (`wc -l`, then `sed -n`).
+feedback, e.g. the /minigame loop). Read it in slices (`wc -l`, then `sed -n`).
 
 ## 2. Find the moments
 
@@ -25,8 +25,7 @@ A moment is where the agent's direction and the user's diverged, or a guard fire
 - a `PROMPT` that corrects, repeats or narrows the previous request ("không phải", "ý t là",
   "again", "still", a pasted error), an `INTERRUPT`, an `ANSWER` that is not the recommended option;
 - a `DENIED` / `BLOCK` that repeats across sessions (the agent keeps trying the same blocked thing);
-- a `HOOK` line: which supervisor questions fired, and whether the next prompt shows the answer
-  was right;
+- a `HOOK` line that fired again and again in one session (a loop that never closes a stage);
 - a session title that repeats (the same task done twice, or redone).
 
 For a moment that needs context, open that transcript (`~/.claude/projects/<slug>/<id>*.jsonl`,
@@ -48,7 +47,7 @@ is more urgent than a new one.
 ### <failure mode>
 Evidence: <session title [id], time — one line each, at most three>
 Guard today: <file, or "none">
-Proposal: <the smallest change: a rule line, a skill step, a hook check, an invariant-paths entry,
+Proposal: <the smallest change: a rule line, a skill step, a hook check,
            a doc bullet, a memory note> — generic (template) or this game only
 ```
 

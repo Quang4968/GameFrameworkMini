@@ -61,6 +61,6 @@ origin/develop ──┬──────────────────�
 
 ## Porting
 
-The branch names live in the text of `.claude/rules/commits.md`, `/task`, `/lead` and `/finish`.
+The branch names live in the text of `.claude/rules/commits.md`, `/task`, `/minigame` and `/finish`.
 The framework repo itself has no `develop`; a cloned game creates it (`new-project-checklist.md`).
 A project that keeps `main` instead of `master` changes nothing else.

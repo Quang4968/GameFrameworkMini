@@ -48,7 +48,7 @@ Write the plan as a short list:
 - what the EditMode test will assert, against a contract that exists or that this plan names.
 
 A plan that hinges on a design question with several defensible answers (data format, ownership,
-sync model, algorithm) settles it with `/design` first and cites the chosen option.
+sync model, algorithm) puts the options to the user with a recommendation and cites the choice.
 
 Then **stop and ask** with `AskUserQuestion` (options: proceed / adjust). Do not touch a file until
 the answer arrives. If the user changes the direction, re-plan and ask again.
@@ -67,8 +67,6 @@ the answer arrives. If the user changes the direction, re-plan and ask again.
    (including narrowing a requirement to make it fit) goes back to the user; it is not taken silently.
 6. Before verifying, answer for yourself: which plan line and doc line does each changed contract
    rest on, and did an assertion that existed at `HEAD` change? An answer of "none" means stop and ask.
-7. `Supervisor, open questions` from the Stop hook are answered in your reply, one or two lines
-   each: say why the work is right, or fix it, or ask the user.
 
 ## 4. Verify
 

@@ -1,0 +1,90 @@
+# <Game title> - build plan
+
+Approved on <date>. The run follows this file; anything it does not settle is decided under
+"Decisions the run may take alone" and logged in `decisions.md`.
+
+## Inputs
+
+| Input | Value |
+| --- | --- |
+| Slug / `<Game>` prefix | `<slug>` / `<Game>` |
+| TikTok appid | |
+| Rewarded ad unit ids | |
+| Interstitial ad unit ids | |
+| Build output folder | `~/Builds/<slug>-tiktok` |
+
+## Gameplay spec
+
+- Core loop (one sentence), input, win condition, lose condition.
+- Board / pieces / rules, each as a bullet the `core` stage turns into a rule and a test.
+- Boosters (`BoosterType` values to append), what each does, cost in coins.
+- Mechanics introduced over time (`GameFeature` values) and their first level.
+
+## Level format
+
+Data shape, where the files live, how the loader reads them, level count at launch.
+
+## Difficulty
+
+| Levels | Target win rate | Notes |
+| --- | --- | --- |
+| 1-5 | 0.95 | onboarding |
+| | | |
+
+Tolerance ±<0.05>, runs per level <200>, bot skill <0.6> ("average player"), move cap <n>.
+Generator parameters to tune: <list>. Iteration cap 12.
+
+## Screens
+
+| Screen | Demo | In scope | Notes |
+| --- | --- | --- | --- |
+| Home | `Textures/UI/Home/...` | yes | |
+
+## Feel
+
+| Event | Cue (`AudioCue`) | Clip | Effect (prefab) | Haptic |
+| --- | --- | --- | --- | --- |
+| tap | | | | |
+
+## Tutorial
+
+| Lesson (`E_TutorialId`) | Unlock level | Steps | Reward |
+| --- | --- | --- | --- |
+| HowToPlay | 1 | | none |
+
+## Economy and monetization
+
+- Coins: start, per win (per difficulty), revive cost and step, booster cost and pack size, life
+  refill cost, lives max and refill minutes.
+- Rewarded placements kept: revive, win x2, extra lives, <others>; enable flags default.
+- Short of coins: <rewarded coins offer (amount) | dimmed button>.
+- Interstitial: first level <n>, cooldown <s>, cooldown after rewarded <s>, first-session delay <s>,
+  shown on <Win claim, Lose exit>.
+
+## SDK and tracking
+
+`MB_TIKTOK` only. Game-specific events: <name, params, call site>.
+
+## Build
+
+Package budget: wasm <MB>, total <MB>. Test build first; release <yes/no>.
+
+## Done-checks per stage
+
+| Stage | Proof |
+| --- | --- |
+| core | fixture level played to a win in a test |
+| views | Play-mode capture of level 1 |
+| balance | `balance.md` inside tolerance |
+| ui | side-by-side compare per screen |
+| feel | every event wired or listed missing |
+| tutorial | HowToPlay plays on a fresh state |
+| sdk | preflight SDK rows clean |
+| monet | each placement pays once in the Editor |
+| smoke | flow without console errors |
+| build | `tt-minigame/` inside budget |
+
+## Decisions the run may take alone
+
+- <e.g. sprite missing for a decoration: build without it and list it>
+- <e.g. balance does not converge in 12 iterations: keep the closest, log it>

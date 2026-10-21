@@ -2,9 +2,10 @@
 
 # Game Framework
 
-Rules live in `.claude/rules/` (auto-loaded; long form in `docs/stack/`). Every task starts with
-`/task`, which reads this card and the doc for the system before any code, presents a plan, and waits
-for the go-ahead. Every C# change ends with `/verify`. `<Game>` in any rule or stack doc resolves
+Rules live in `.claude/rules/` (auto-loaded; long form in `docs/stack/`). A game is built with
+`/minigame`: one plan the user approves, then an autonomous run to a TikTok build. Any other task
+starts with `/task`, which reads this card and the doc for the system before any code, presents a
+plan, and waits for the go-ahead. Every C# change ends with `/verify`. `<Game>` in any rule or stack doc resolves
 through the project card below.
 
 **This project**: the base every new TikTok Mini Game is cloned from. It holds everything a casual level game
@@ -64,7 +65,8 @@ Read the doc before the code (protocol in `.claude/rules/workflow.md`). First ma
 | localization: `*Locali*` (`ILocalizationService`, `LocalizationTable`, `LocalizationCsv`, `LocalizationProvider`, `LocalizationSettingsSO`, `LocalizedText`, `Localize(...)`), `LanguageEntry`, `LanguageFontProfileSO`, `FontSlot`, `FontStyleMaterial`, `FontMaterialCloneRules`, `FontProfile*`, `LocalizedTextFitter`, `LocalizationDebugPanel`, `Data/Localization/`, `tools/localization/`, localization keys / sheet / language fonts | `docs/localization.md` |
 | a popup, screen or HUD view: Win, Lose, Out of lives, Buy booster, Shop, Settings, Profile, Home, `HomeBootstrap.RequestPlay` | `docs/stack/popup-behaviours.md` |
 | scene flow, which installer each scene calls, the GameplayBridge seam | `ARCHITECTURE.md` |
-| `.claude/hooks/`, `.claude/agents/`, `/lead`, `/design`, `/retro`, the Editor lock, supervisor questions | `docs/stack/agent-workflow.md` |
+| `/minigame`, its stages, `state.py`, `minigame-continue.sh`, building a game from its assets | `docs/stack/minigame-pipeline.md` |
+| `.claude/hooks/`, `.claude/agents/`, `/retro`, the Editor lock | `docs/stack/agent-workflow.md` |
 | a new system, layering, DI per scene, pooling, R3/UniTask/LitMotion patterns, Editor CLI, doc format, branches, porting the template, building UI from a demo | `docs/stack/` (`adding-a-system.md`, `architecture.md`, `reactive-and-motion.md`, `unity-editor-cli.md`, `doc-template.md`, `git-workflow.md`, `new-project-checklist.md`, `playable-ads.md`, `ui-from-demo.md`) |
 
 <!-- .claude/rules/architecture.md -->
@@ -157,6 +159,7 @@ Commits:
   bodies, trailers, branch names, code comments or documentation unless explicitly requested.
   No `Co-Authored-By` trailers.
 - Commit only when asked, on the feature branch. Stage the paths this task changed, one by one.
+  An approved `/minigame` plan asks for one commit per stage on `feat/<slug>`; never a push or merge.
 
 Examples: `feat(popup): add pause dialog`, `fix(input): prevent duplicate tap events`,
 `chore(deps): update addressables package`.
@@ -306,7 +309,8 @@ had to fix by hand.
 - A sprite the demo needs and the project lacks is asked for, never substituted.
 - The user approves the spec (asset list, layout, text and button tables) before the build, and sees
   the build only after a side-by-side compare with the demo passes row by row; the report carries
-  that image.
+  that image. Inside a `/minigame` run the approved build plan approves the spec; the compare still
+  gates every screen.
 
 <!-- .claude/rules/unity-editor-cli.md -->
 
@@ -314,8 +318,13 @@ had to fix by hand.
 
 The running Editor is driven only through `unity command ...` (`com.unity.pipeline`, experimental;
 version per `Packages/manifest.json`). Never use `mcp__unityMCP__*`; everything is reachable through a
-dedicated command or `eval`. Run from the project root or pass `--project-path`. Long form and
-`eval` recipes: `docs/stack/unity-editor-cli.md`.
+dedicated command or `eval`. Long form and `eval` recipes: `docs/stack/unity-editor-cli.md`.
+
+- **Target this project explicitly.** Several Editors may run at once and auto-detection picks any of
+  them: a delete meant for this project once landed in another one. `UNITY_PROJECT_PATH` (set per
+  machine in `.claude/settings.local.json` `env`) covers it; when it is not set, put
+  `--project-path "<repo root>"` after the subcommand (`unity command eval --project-path "..."`), and
+  check `projectPath` in `editor_status` before the first mutating call.
 
 - Tests: `unity command run_tests --mode EditMode`. The result is in the response; `test_status`
   reports `no_tests` afterwards.
@@ -349,12 +358,15 @@ dedicated command or `eval`. Run from the project root or pass `--project-path`.
 
 # Workflow
 
-- Every task starts with `/task`: read the project card in `CLAUDE.md`, then the one doc for the
+- Building a game from its assets is `/minigame`: one interactive phase (assets, plan, every input
+  and grant), then an autonomous loop. The approved build plan counts as the go-ahead for every stage
+  and every skill the loop calls (`/task`, `/new-*`, `/ui-from-demo` spec); nothing stops to ask until
+  the run ends (`.claude/skills/minigame/reference/autonomy.md`).
+- Any other task starts with `/task`: read the project card in `CLAUDE.md`, then the one doc for the
   system being touched, then plan. **Present the plan and stop for the user's go-ahead before the
   first edit** — every task, even a one-file fix. The user decides the direction, not the agent.
-  `/lead` batches several tasks under one approved plan; that approval counts for every task in it.
-- A design question with several defensible answers goes through `/design` (blind lanes) before it
-  is planned; the user picks the option.
+- A design question with several defensible answers is put to the user as options with a
+  recommendation before it is planned.
 - Read a doc's first 20 lines only (`Read` with `limit: 20`): the summary block holds the cross-file
   invariants no single file states. Read further only when the summary is not enough.
 - Source files carry dense header comments: grep to the symbol and read around it, never whole files.
@@ -364,7 +376,8 @@ dedicated command or `eval`. Run from the project root or pass `--project-path`.
 - A new service, persisted data or settings SO → `/new-system`; a new `MonoBehaviour` → `/new-view`;
   a new popup → `/new-popup`; UI built or restyled from a demo → `/ui-from-demo`; a new system doc
   → `/write-doc`.
-- After every C# change run `/verify` (`unity command run_tests --mode EditMode` underneath). A red
+- After every C# change run `/verify` (`unity command run_tests --mode EditMode` underneath); inside
+  a `/minigame` run, `/verify --no-review` per stage and the review once at the end. A red
   architecture test is a code bug, never a baseline edit.
 - Update the system's doc in the same change that alters its behaviour; no parallel doc set.
 - `Assets/SDK/`, `Assets/Plugins/`, `Assets/Packages/`, `Assets/TextMesh Pro/`, vendor folders,
@@ -380,5 +393,3 @@ dedicated command or `eval`. Run from the project root or pass `--project-path`.
 - One session drives the Editor at a time: a hook takes the Editor lock on the first `unity command`
   that is not a pure read and refuses other sessions until it is released (`/task` step 7, session
   end, or 15 min unused). Blocked means do the work that needs no Editor, never retry in a loop.
-- `Supervisor, open questions` from the Stop hook are answered, never skipped: say why the work is
-  right, fix it, or ask the user.

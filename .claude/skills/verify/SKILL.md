@@ -50,9 +50,8 @@ code, not in the baseline.
 
 ## 6. Template hygiene
 
-- `grep -rn "<Game>" .claude docs/stack --exclude=invariant-paths.txt` (the concrete prefix from
-  the project card) must print nothing: template files never name the game. `invariant-paths.txt`
-  is exempt because it is per game (`docs/stack/agent-workflow.md`).
+- `grep -rn "<Game>" .claude docs/stack` (the concrete prefix from the project card) must print
+  nothing: template files never name the game.
 - `grep -rn 'Assets/_Dev' .claude/skills .claude/rules` must print nothing except the one default
   mention in `workflow.md`.
 - `ArchitectureConfig.ScriptsRoot` and `GameAssemblyPrefix` match the project card.

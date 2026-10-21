@@ -27,11 +27,15 @@ fi
 echo "[toolkit] branch $branch · $modified modified · $untracked untracked · last EditMode run: $last"
 
 if [ -f Library/Pipeline/.unity-pipeline-port ]; then
-  status=$(perl -e 'alarm 5; exec @ARGV' unity command editor_status 2>/dev/null | tail -1 | sed -n 's/.*"status":"\([^"]*\)".*"playMode":"\([^"]*\)".*/\1, play mode \2/p')
+  status=$(perl -e 'alarm 5; exec @ARGV' unity command editor_status --project-path "$root" 2>/dev/null | tail -1 | sed -n 's/.*"status":"\([^"]*\)".*"playMode":"\([^"]*\)".*/\1, play mode \2/p')
   echo "[toolkit] Editor: ${status:-reachable but status unknown} (port $(sed -n 's/.*"port"[[:space:]]*:[[:space:]]*\([0-9]*\).*/\1/p' Library/Pipeline/.unity-pipeline-port | head -1))"
 else
   echo "[toolkit] Editor: not running — start it before /verify or any unity command."
 fi
 "$here/editor-lock.sh" status "$session"
-echo "[toolkit] Protected paths are hook-enforced (.claude/hooks/protected-paths.txt). Start work with /task; it plans first and waits for your go-ahead."
+[ "${UNITY_PROJECT_PATH:-}" = "$root" ] || echo "[toolkit] UNITY_PROJECT_PATH is not this project: pass --project-path \"$root\" after every unity command subcommand."
+if [ -f Library/Toolkit/minigame/state.json ]; then
+  echo "[toolkit] /minigame: $(python3 .claude/skills/minigame/scripts/state.py status 2>/dev/null | head -1). Continue with /minigame resume."
+fi
+echo "[toolkit] Protected paths are hook-enforced (.claude/hooks/protected-paths.txt). Build a game with /minigame; other changes start with /task."
 exit 0
