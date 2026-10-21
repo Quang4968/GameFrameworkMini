@@ -1,0 +1,17 @@
+using System;
+
+namespace <Game>.Core.Services
+{
+    // Holds the <Name> balance; persisting it is Game's job. Never negative: TrySpend returns false
+    // instead of overdrawing, so callers do not check first.
+    public interface I<Name>Service
+    {
+        int <Property> { get; }
+
+        // Raised with the NEW value after every change; views listen instead of polling.
+        event Action<int> <Property>Changed;
+
+        void Add(int amount);
+        bool TrySpend(int amount);
+    }
+}

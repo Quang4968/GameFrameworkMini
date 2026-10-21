@@ -1,0 +1,660 @@
+{
+    "LevelInfo": {
+        "LevelId": 16,
+        "GameAreaHeight": 990.0,
+        "SlotCount": 6,
+        "UnlockSlot": 2
+    },
+    "boxInfos": [
+        {
+            "type": 0,
+            "color": 4,
+            "direction": 0,
+            "angle": 0,
+            "posX": 66.608343,
+            "posY": 896.0145669999997,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 2,
+            "direction": 0,
+            "angle": 0,
+            "posX": 151.64327100000003,
+            "posY": 896.0145669999999,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 6,
+            "direction": 0,
+            "angle": 0,
+            "posX": 275.6525410000001,
+            "posY": 913.7301769999995,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 5,
+            "direction": 0,
+            "angle": 0,
+            "posX": 539.6151300000001,
+            "posY": 904.8723719999998,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 3,
+            "direction": 0,
+            "angle": 0,
+            "posX": 626.4216190000002,
+            "posY": 906.6439329999998,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 3,
+            "direction": 6,
+            "angle": 90,
+            "posX": 911.6429400000002,
+            "posY": 892.4714449999994,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 3,
+            "direction": 6,
+            "angle": 90,
+            "posX": 750.430889,
+            "posY": 894.2430059999997,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 4,
+            "direction": 0,
+            "angle": 0,
+            "posX": 365.25393299999985,
+            "posY": 858.9615880000001,
+            "bulletCount": 8,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 8,
+            "direction": 0,
+            "angle": 0,
+            "posX": 451.0370800000002,
+            "posY": 857.0402249999997,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 2,
+            "direction": 2,
+            "angle": -90,
+            "posX": 121.52673400000015,
+            "posY": 777.3199799999993,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 5,
+            "direction": 0,
+            "angle": 0,
+            "posX": 275.65254100000004,
+            "posY": 759.6043700000007,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 4,
+            "direction": 6,
+            "angle": 90,
+            "posX": 594.5335210000001,
+            "posY": 789.7209069999997,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 7,
+            "direction": 6,
+            "angle": 90,
+            "posX": 920.5007450000003,
+            "posY": 777.31998,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 2,
+            "direction": 6,
+            "angle": 90,
+            "posX": 769.9180600000003,
+            "posY": 780.8631019999996,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 2,
+            "direction": 0,
+            "angle": 0,
+            "posX": 447.7337730000001,
+            "posY": 691.0830920000003,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 6,
+            "direction": 6,
+            "angle": 90,
+            "posX": 590.9903990000003,
+            "posY": 692.2850519999995,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 1,
+            "direction": 0,
+            "angle": 0,
+            "posX": 364.2305910000001,
+            "posY": 697.599735,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 1,
+            "direction": 6,
+            "angle": 90,
+            "posX": 899.3536340000002,
+            "posY": 666.459783,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 7,
+            "direction": 2,
+            "angle": -90,
+            "posX": 107.35424599999999,
+            "posY": 665.7116370000001,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 2,
+            "direction": 0,
+            "angle": 0,
+            "posX": 757.5171330000001,
+            "posY": 628.5088559999997,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 6,
+            "direction": 0,
+            "angle": 0,
+            "posX": 279.19566300000014,
+            "posY": 593.0776359999995,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 3,
+            "direction": 0,
+            "angle": 0,
+            "posX": 448.84856199999996,
+            "posY": 565.917183,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 1,
+            "direction": 2,
+            "angle": -90,
+            "posX": 105.58268499999997,
+            "posY": 559.4179769999998,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 6,
+            "direction": 6,
+            "angle": 90,
+            "posX": 592.76196,
+            "posY": 585.9913919999995,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 7,
+            "direction": 0,
+            "angle": 0,
+            "posX": 369.54527400000006,
+            "posY": 564.7326600000001,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 4,
+            "direction": 6,
+            "angle": 90,
+            "posX": 893.9273300000002,
+            "posY": 562.9610989999994,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 6,
+            "direction": 6,
+            "angle": 90,
+            "posX": 775.232743,
+            "posY": 449.5811949999993,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 5,
+            "direction": 0,
+            "angle": 0,
+            "posX": 924.0438670000002,
+            "posY": 442.4949509999997,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 1,
+            "direction": 2,
+            "angle": -90,
+            "posX": 55.97897700000004,
+            "posY": 451.3527559999998,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 3,
+            "direction": 2,
+            "angle": -90,
+            "posX": 194.160735,
+            "posY": 451.35275599999954,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 1,
+            "direction": 0,
+            "angle": 0,
+            "posX": 302.22595600000005,
+            "posY": 438.9518290000001,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 3,
+            "direction": 0,
+            "angle": 0,
+            "posX": 537.8435690000002,
+            "posY": 431.8655849999991,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 2,
+            "color": 5,
+            "direction": 0,
+            "angle": 0,
+            "posX": 631.7363019999999,
+            "posY": 431.86558499999956,
+            "bulletCount": 10,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 1,
+            "direction": 2,
+            "angle": -90,
+            "posX": 420.9205430000002,
+            "posY": 431.865585,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 5,
+            "direction": 0,
+            "angle": 0,
+            "posX": 78.7406,
+            "posY": 341.5787999999998,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 4,
+            "direction": 0,
+            "angle": 0,
+            "posX": 171.13044200000004,
+            "posY": 341.5159739999997,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 5,
+            "direction": 2,
+            "angle": -90,
+            "posX": 915.1860620000002,
+            "posY": 334.4297299999996,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 8,
+            "direction": 2,
+            "angle": -90,
+            "posX": 755.7455720000003,
+            "posY": 337.9728519999999,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 1,
+            "color": 1,
+            "direction": 2,
+            "angle": -90,
+            "posX": 420.92054300000007,
+            "posY": 332.65816899999936,
+            "bulletCount": 6,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 8,
+            "direction": 0,
+            "angle": 0,
+            "posX": 300.45439500000015,
+            "posY": 281.28289999999924,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 3,
+            "direction": 0,
+            "angle": 0,
+            "posX": 537.8435690000001,
+            "posY": 275.96821699999964,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        },
+        {
+            "type": 0,
+            "color": 1,
+            "direction": 0,
+            "angle": 0,
+            "posX": 628.19318,
+            "posY": 275.96821699999964,
+            "bulletCount": 4,
+            "isColorful": false,
+            "isFrozen": false,
+            "keyId": 0,
+            "lockId": 0
+        }
+    ],
+    "caveInfos": [],
+    "conveyorInfos": [
+        {
+            "direction": 0,
+            "posX": 495,
+            "posY": 121.00430000000006,
+            "interval": 80,
+            "speed": 30,
+            "contentBoxInfos": [
+                {
+                    "type": 1,
+                    "color": 2,
+                    "bulletCount": 6
+                },
+                {
+                    "type": 2,
+                    "color": 5,
+                    "bulletCount": 10
+                },
+                {
+                    "type": 2,
+                    "color": 1,
+                    "bulletCount": 10
+                },
+                {
+                    "type": 0,
+                    "color": 5,
+                    "bulletCount": 4
+                },
+                {
+                    "type": 1,
+                    "color": 8,
+                    "bulletCount": 6
+                },
+                {
+                    "type": 2,
+                    "color": 1,
+                    "bulletCount": 10
+                },
+                {
+                    "type": 2,
+                    "color": 7,
+                    "bulletCount": 10
+                },
+                {
+                    "type": 1,
+                    "color": 8,
+                    "bulletCount": 6
+                },
+                {
+                    "type": 0,
+                    "color": 4,
+                    "bulletCount": 4
+                },
+                {
+                    "type": 2,
+                    "color": 3,
+                    "bulletCount": 10
+                },
+                {
+                    "type": 1,
+                    "color": 1,
+                    "bulletCount": 6
+                },
+                {
+                    "type": 2,
+                    "color": 1,
+                    "bulletCount": 10
+                },
+                {
+                    "type": 1,
+                    "color": 1,
+                    "bulletCount": 6
+                },
+                {
+                    "type": 0,
+                    "color": 7,
+                    "bulletCount": 4
+                },
+                {
+                    "type": 0,
+                    "color": 3,
+                    "bulletCount": 4
+                },
+                {
+                    "type": 1,
+                    "color": 7,
+                    "bulletCount": 6
+                },
+                {
+                    "type": 2,
+                    "color": 7,
+                    "bulletCount": 10
+                },
+                {
+                    "type": 0,
+                    "color": 5,
+                    "bulletCount": 4
+                }
+            ]
+        }
+    ],
+    "liftPileInfos": [],
+    "bigIceInfos": []
+}

@@ -1,0 +1,25 @@
+{
+    "name": "Game.Editor",
+    "rootNamespace": "Game.Editor",
+    "references": [
+        "Game.Core",
+        "Game.Game",
+        "Unity.TextMeshPro",
+        "MoodBoost.Sdk.Core",
+        "MoodBoost.Sdk.Tracking",
+        "DarkTonic.PoolBoss",
+        "VContainer",
+        "UniTask"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

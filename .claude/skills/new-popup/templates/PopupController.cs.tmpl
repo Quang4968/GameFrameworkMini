@@ -1,0 +1,37 @@
+using <Game>.Core.Services;
+using UnityEngine;
+using VContainer;
+
+namespace <Game>.Game.Views.Popup
+{
+    // Behaviour of the <Name> popup. Wiring happens in Construct (once, after resolver.Instantiate);
+    // OnEnable is not "opened" - prewarm fires it too - so on-screen work listens to PopupView.Opened.
+    public sealed class Popup<Name>Controller : MonoBehaviour
+    {
+        [Tooltip("The popup root view. Empty: the popup shows but never refreshes on open.")]
+        [SerializeField] PopupView view;
+
+        I<Service>Service service;
+
+        [Inject]
+        public void Construct(I<Service>Service <service>Service)
+        {
+            service = <service>Service;
+            if (view != null) view.Opened += OnOpened;
+            service.<Property>Changed += Redraw;
+        }
+
+        void OnDestroy()
+        {
+            if (view != null) view.Opened -= OnOpened;
+            if (service != null) service.<Property>Changed -= Redraw;
+        }
+
+        void OnOpened(IPopupView _) => Redraw(service.<Property>);
+
+        void Redraw(int value)
+        {
+            // Draw only. A popup freezes Time.timeScale: any motion here runs on UpdateIgnoreTimeScale.
+        }
+    }
+}

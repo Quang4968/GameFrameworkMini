@@ -1,0 +1,20 @@
+{
+  "schema": "ttmg-unity-plugin-provenance/v1",
+  "bundle": {
+    "file": "index.js",
+    "sha256": "93e25bd22663b61f922cc73d78538297772ee5466c60de42b810c0cbee42306d",
+    "bytes": 839734,
+    "moduleFormat": "commonjs2"
+  },
+  "frameworkVersion": "1.0.0",
+  "build": {
+    "gitHash": "748f96ba2274680e3e73d092540e6d45dbc95657",
+    "timestamp": "0",
+    "command": "node scripts/build-plugin.mjs"
+  },
+  "source": {
+    "commit": "748f96ba2274680e3e73d092540e6d45dbc95657",
+    "dirty": false,
+    "identity": "sha256:be96f529592a181e49b8d634d344a69e12feba2dc876cc52c7c66a3d7d40f73b"
+  }
+}

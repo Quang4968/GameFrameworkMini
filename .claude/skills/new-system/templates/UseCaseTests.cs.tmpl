@@ -1,0 +1,77 @@
+using System;
+using NUnit.Framework;
+using <Game>.Core.Services;
+using <Game>.Core.UseCases;
+
+namespace <Game>.Core.Tests.UseCases
+{
+    public class <Verb><Name>UseCaseTests
+    {
+        sealed class Fake<Name>Service : I<Name>Service
+        {
+            public int <Property> { get; private set; }
+            public event Action<int> <Property>Changed;
+
+            public Fake<Name>Service(int value = 0) => <Property> = value;
+
+            public void Add(int amount)
+            {
+                if (amount <= 0) return;
+                <Property> += amount;
+                <Property>Changed?.Invoke(<Property>);
+            }
+
+            public bool TrySpend(int amount)
+            {
+                if (amount <= 0 || <Property> < amount) return false;
+                <Property> -= amount;
+                <Property>Changed?.Invoke(<Property>);
+                return true;
+            }
+        }
+
+        [Test]
+        public void Execute_EnoughBalance_SpendsAndReturnsTrue()
+        {
+            var service = new Fake<Name>Service(100);
+
+            Assert.IsTrue(<Verb><Name>UseCase.Execute(service, 40));
+            Assert.AreEqual(60, service.<Property>);
+        }
+
+        [Test]
+        public void Execute_NotEnoughBalance_LeavesBalanceUntouched()
+        {
+            var service = new Fake<Name>Service(30);
+
+            Assert.IsFalse(<Verb><Name>UseCase.Execute(service, 40));
+            Assert.AreEqual(30, service.<Property>, "A failed spend must not deduct anything.");
+        }
+
+        [Test]
+        public void Execute_NonPositiveCost_ReturnsFalse()
+        {
+            Assert.IsFalse(<Verb><Name>UseCase.Execute(new Fake<Name>Service(100), 0));
+        }
+
+        [Test]
+        public void Execute_NullService_ReturnsFalse_AndDoesNotThrow()
+        {
+            Assert.IsFalse(<Verb><Name>UseCase.Execute(null, 10));
+        }
+
+        [Test]
+        public void Execute_RaisesChangedOnce_WithNewValue()
+        {
+            var service = new Fake<Name>Service(100);
+            var raised = 0;
+            var last = -1;
+            service.<Property>Changed += v => { raised++; last = v; };
+
+            <Verb><Name>UseCase.Execute(service, 25);
+
+            Assert.AreEqual(1, raised);
+            Assert.AreEqual(75, last);
+        }
+    }
+}

@@ -1,0 +1,50 @@
+using System;
+using <Game>.Core.Services;
+using UnityEngine;
+
+namespace <Game>.Game.Services
+{
+    // Persists the <Name> balance in PlayerPrefs. State lives in RAM and is written only on change,
+    // so a HUD reading <Property> every frame costs nothing.
+    public sealed class PlayerPrefs<Name>Service : I<Name>Service
+    {
+        public const string PrefsKey = "<Game>.<Name>";
+
+        public int <Property> { get; private set; }
+
+        public event Action<int> <Property>Changed;
+
+        public PlayerPrefs<Name>Service(int starting<Property> = 0)
+        {
+            // A fresh device takes the starting value; an existing one keeps its balance.
+            <Property> = Mathf.Max(0, PlayerPrefs.GetInt(PrefsKey, Mathf.Max(0, starting<Property>)));
+        }
+
+        public void Add(int amount)
+        {
+            if (amount <= 0) return;
+
+            Set(<Property> + amount);
+        }
+
+        public bool TrySpend(int amount)
+        {
+            if (amount <= 0) return false;
+            if (<Property> < amount) return false;
+
+            Set(<Property> - amount);
+            return true;
+        }
+
+        void Set(int value)
+        {
+            <Property> = value;
+            PlayerPrefs.SetInt(PrefsKey, value);
+
+            // Save now rather than at quit: a mobile app is killed in the background at any time.
+            PlayerPrefs.Save();
+
+            <Property>Changed?.Invoke(value);
+        }
+    }
+}

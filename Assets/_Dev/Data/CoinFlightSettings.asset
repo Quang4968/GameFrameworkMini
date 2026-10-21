@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea08a54c5672d40449f082d7d50cf147, type: 3}
+  m_Name: CoinFlightSettings
+  m_EditorClassIdentifier: Game.Game::Game.Game.Data.CoinFlightSettingsSO
+  _coinPrefab: {fileID: 0}
+  _layerPrefab: {fileID: 0}
+  _coinsPerBurst: 24
+  _maxCoins: 60
+  _scatterDuration: 0.42
+  _flyStagger: 0.045
+  _maxFlySpread: 0.5
+  _flyDuration: 0.5
+  _minThrowSpeed: 700
+  _maxThrowSpeed: 1250
+  _throwAngleRange: {x: 20, y: 160}
+  _gravity: 2100
+  _drag: 6.5
+  _maxTumble: 40
+  _flyDip: 70
+  _spawnScale: 0.3
+  _hoverScale: 1.45
+  _endScale: 0.7

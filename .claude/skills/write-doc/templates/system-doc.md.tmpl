@@ -1,0 +1,30 @@
+# <System title>
+
+<One or two lines: what this system owns and when to read this file. Delete if the title says it.>
+
+## Tóm tắt
+
+- **<Invariant>**: <what holds across files, and what silently breaks when it does not>.
+- <The only place X happens is `Type.Method`; doing it elsewhere causes Y>.
+- <Enum stored by index> takes new values **appended at the end** only.
+- Đăng ký: `builder.Register<Feature>(...)` in every scope that hosts <View>; a missing registration
+  breaks the whole container of that scene.
+- Persist: `"<Game>.<Name>"` in PlayerPrefs, saved on change; <what a stale value looks like>.
+- Xem [<sibling>.md](<sibling>.md) for <related concern>.
+
+**Bắt đầu từ**: `Core/Services/I<Feature>Service.cs`, `Game/Services/PlayerPrefs<Feature>Service.cs`,
+`Game/Views/<Folder>/<Feature>View.cs`.
+
+## Luồng
+
+```
+<caller> --I<Feature>Service--> <Service> --<Property>Changed--> <View>
+```
+
+## Bẫy
+
+- <Trap>: <why it happens, what to do instead>.
+
+## Test
+
+- `Tests/EditMode/Core/<Folder>/<Subject>Tests.cs` covers <rules>; fakes are nested in the test class.

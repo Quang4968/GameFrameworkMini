@@ -1,0 +1,54 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using LitMotion;
+using LitMotion.Extensions;
+using UnityEngine;
+
+namespace <Game>.Game.Animation
+{
+    // Pooled effect. Lifetime comes from TimedDespawner on the same prefab; this component never
+    // despawns itself. A despawned object is only inactive, so everything started here is cancelled
+    // in OnDespawned and reset in OnSpawned.
+    public sealed class <Name> : MonoBehaviour
+    {
+        [Tooltip("Particles restarted on every spawn. Empty: the scale punch still plays.")]
+        [SerializeField] ParticleSystem particles;
+
+        [SerializeField, Min(0.01f)] float punchDuration = 0.2f;
+
+        MotionHandle punch;
+        CancellationTokenSource spawnLifetime;   // destroyCancellationToken never fires on despawn
+
+        // Pool Boss broadcasts both; private and parameterless on purpose.
+        void OnSpawned()
+        {
+            spawnLifetime = new CancellationTokenSource();
+            transform.localScale = Vector3.zero;
+            if (particles != null) particles.Play(true);
+
+            punch = LMotion.Create(0f, 1f, punchDuration)
+                .WithEase(Ease.OutBack)
+                .BindToLocalScaleXYZ(transform)
+                .AddTo(gameObject);
+
+            RunAsync(spawnLifetime.Token).Forget();
+        }
+
+        void OnDespawned()
+        {
+            punch.TryCancel();
+            spawnLifetime?.Cancel();
+            spawnLifetime?.Dispose();
+            spawnLifetime = null;
+            if (particles != null) particles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        void OnDestroy() => OnDespawned();   // scene unload while spawned
+
+        async UniTaskVoid RunAsync(CancellationToken ct)
+        {
+            await UniTask.Delay(300, cancellationToken: ct);
+            // Later phases of the effect go here.
+        }
+    }
+}

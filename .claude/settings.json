@@ -1,0 +1,116 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git show*)",
+      "Bash(git branch*)",
+      "Bash(git blame*)",
+      "Bash(git rev-parse*)",
+      "Bash(git ls-files*)",
+      "Bash(ls*)",
+      "Bash(find*)",
+      "Bash(grep*)",
+      "Bash(rg*)",
+      "Bash(cat*)",
+      "Bash(head*)",
+      "Bash(tail*)",
+      "Bash(wc*)",
+      "Bash(awk*)",
+      "Bash(sed -n*)",
+      "Bash(sort*)",
+      "Bash(uniq*)",
+      "Bash(diff*)",
+      "Bash(which*)",
+      "Bash(unity command)",
+      "Bash(unity command *)",
+      "Bash(.claude/hooks/editor-lock.sh*)"
+    ],
+    "ask": [
+      "Bash(unity command build*)",
+      "Bash(git commit*)",
+      "Bash(git push*)",
+      "Bash(git reset*)",
+      "Bash(git checkout*)",
+      "Bash(git restore*)",
+      "Bash(git clean*)",
+      "Bash(git submodule*)",
+      "Bash(git stash*)",
+      "Bash(git switch*)",
+      "Bash(git merge*)",
+      "Bash(git fetch*)",
+      "Bash(git pull*)",
+      "Bash(git branch -d*)",
+      "Bash(git branch -D*)"
+    ],
+    "deny": [
+      "mcp__unityMCP__*",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(rm -rf*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start.sh", "timeout": 15 }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash",
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/protect-paths.sh", "timeout": 10 }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/editor-lock.sh", "timeout": 10 }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-file-length.sh", "timeout": 10 },
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/build-agents-md.sh", "timeout": 10 },
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/track-edits.sh", "timeout": 10 }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/mark-tests-ran.sh", "timeout": 10 }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/remind-tests.sh", "timeout": 10 },
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/supervisor-events.sh", "timeout": 10 }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/supervisor-events.sh", "timeout": 10 }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          { "type": "command", "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/editor-lock.sh", "timeout": 5 }
+        ]
+      }
+    ]
+  }
+}

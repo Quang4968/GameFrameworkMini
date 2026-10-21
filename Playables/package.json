@@ -1,0 +1,33 @@
+{
+  "name": "playables",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "new": "node _engine/tools/new.mjs",
+    "guid": "node _engine/tools/guid.mjs",
+    "deps": "node _engine/tools/deps.mjs",
+    "pull": "node _engine/tools/pull-assets.mjs",
+    "assets": "node _engine/tools/optimize-assets.mjs",
+    "dev": "node _engine/tools/dev.mjs",
+    "build": "node _engine/tools/build.mjs",
+    "audit": "node _engine/tools/audit.mjs",
+    "preview": "node _engine/tools/preview.mjs",
+    "export": "node _engine/tools/export.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "pixi.js": "8.6.6",
+    "three": "0.169.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.169.0",
+    "fflate": "0.8.2",
+    "sharp": "0.33.5",
+    "typescript": "5.6.3",
+    "vite": "5.4.11",
+    "yaml": "2.6.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

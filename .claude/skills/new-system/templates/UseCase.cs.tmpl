@@ -1,0 +1,12 @@
+using <Game>.Core.Services;
+
+namespace <Game>.Core.UseCases
+{
+    // One whole action: spend <Property> for something. Null-tolerant like every use case, so a scene
+    // without the service degrades to "cannot spend" instead of throwing.
+    public static class <Verb><Name>UseCase
+    {
+        public static bool Execute(I<Name>Service service, int cost) =>
+            service != null && cost > 0 && service.TrySpend(cost);
+    }
+}

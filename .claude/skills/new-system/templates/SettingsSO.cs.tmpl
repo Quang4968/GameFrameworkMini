@@ -1,0 +1,13 @@
+using UnityEngine;
+
+namespace <Game>.Game.Data
+{
+    // Designer-tunable numbers for <Name>. Data only; the rules that use them live in Core.
+    [CreateAssetMenu(menuName = "<Game>/<Name> Settings", fileName = "<Name>Settings")]
+    public sealed class <Name>SettingsSO : ScriptableObject
+    {
+        [SerializeField, Min(0)] int starting<Property> = 0;
+
+        public int Starting<Property> => starting<Property>;
+    }
+}

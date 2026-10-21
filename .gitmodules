@@ -1,0 +1,3 @@
+[submodule "Game SDK"]
+	path = Assets/SDK
+	url = https://MoodBoost@dev.azure.com/MoodBoost/Game%20SDK/_git/Game%20SDK

@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ccbd3816e214be1865cec831c2b085, type: 3}
+  m_Name: DailyRewardSettings
+  m_EditorClassIdentifier: Game.Game::Game.Game.Data.DailyRewardSettingsSO
+  items:
+  - id: coins
+    icon: {fileID: 0}
+    amountFormat: '{0}'
+  - id: lives
+    icon: {fileID: 0}
+    amountFormat: x{0}
+  - id: unlimited_lives_minutes
+    icon: {fileID: 0}
+    amountFormat: '{0}m'
+  stampSeconds: 0.3
+  closeDelaySeconds: 0.6
+  chestIcon: {fileID: 0}
+  revealFadeSeconds: 0.2
+  revealItemSeconds: 0.3
+  revealItemStaggerSeconds: 0.12
+  claimablePulseScale: 1.05
+  claimablePulseSeconds: 0.6

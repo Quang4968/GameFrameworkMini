@@ -1,0 +1,6 @@
+# Paths whose edits sit on a cross-file invariant; supervisor-events.sh asks the question once per
+# session when one is edited. One entry per line: prefix|doc|open question (neutral: ask, never accuse).
+# Prefixes are repo-relative. Lines starting with # are ignored. A game replaces these with its own.
+Assets/_Dev/Scripts/Game/Services/GameplayBridge|ARCHITECTURE.md|Does every level outcome still reach the framework only through ReportWon/ReportLost/ReportResumed, and do the presenters still listen on the interfaces behind the bridge rather than on a view?
+Assets/_Dev/Scripts/Tests/EditMode/Architecture/ArchitectureBaseline|docs/stack/architecture-tests.md|Is this entry paid-off debt being lowered, or new code being let past the gate?
+Assets/_Dev/Scripts/Game/Views/Popup/PopupId|.claude/rules/architecture.md|Was the new value appended after the last one, so every asset that stores the enum by index keeps pointing at the same popup?

@@ -1,0 +1,20 @@
+{
+    "entries": [
+        {
+            "k": "common.on",
+            "v": "ON"
+        },
+        {
+            "k": "common.off",
+            "v": "OFF"
+        },
+        {
+            "k": "common.level",
+            "v": "Level {0}"
+        },
+        {
+            "k": "common.next",
+            "v": "Next"
+        }
+    ]
+}

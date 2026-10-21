@@ -1,0 +1,78 @@
+using LitMotion;
+using LitMotion.Extensions;
+using R3;
+using <Game>.Core.Services;
+using UnityEngine;
+using VContainer;
+
+namespace <Game>.Game.Views.<Folder>
+{
+    // Shows <Property> from I<Service>Service and folds its panel open or closed. Render only: input
+    // calls a use case, rules stay in Core.
+    public sealed class <Name>View : MonoBehaviour
+    {
+        [Tooltip("Panel that scales in and out. Empty: the view stays static, the scene still runs.")]
+        [SerializeField] RectTransform panel;
+
+        [SerializeField, Range(0.05f, 1f)] float showDuration = 0.2f;
+
+        I<Service>Service service;
+        MotionHandle motion;
+
+        // View-private state; nothing outside this class writes it.
+        readonly ReactiveProperty<bool> isExpanded = new(false);
+
+        public ReadOnlyReactiveProperty<bool> IsExpanded => isExpanded;
+
+        [Inject]
+        public void Construct(I<Service>Service <service>Service) => service = <service>Service;
+
+        void Awake()
+        {
+            isExpanded.Subscribe(OnExpandedChanged).RegisterTo(destroyCancellationToken);
+        }
+
+        void OnEnable()
+        {
+            if (service == null)
+            {
+                Debug.LogError($"[{nameof(<Name>View)}] not injected; register it in the scene LifetimeScope.", this);
+                return;
+            }
+
+            service.<Property>Changed += Redraw;
+            Redraw(service.<Property>);
+        }
+
+        void OnDisable()
+        {
+            if (service != null) service.<Property>Changed -= Redraw;
+            motion.TryCancel();
+        }
+
+        void OnDestroy()
+        {
+            motion.TryCancel();
+            isExpanded.Dispose();
+        }
+
+        public void SetExpanded(bool expanded) => isExpanded.Value = expanded;   // notifies only on change
+
+        void Redraw(int value)
+        {
+            // Draw the value; no decisions here.
+        }
+
+        void OnExpandedChanged(bool expanded)
+        {
+            if (panel == null) return;
+
+            motion.TryCancel();
+            motion = LMotion.Create(panel.localScale.x, expanded ? 1f : 0f, showDuration)
+                .WithEase(Ease.OutCubic)
+                .WithScheduler(MotionScheduler.UpdateIgnoreTimeScale)   // keeps moving under a popup
+                .BindToLocalScaleXYZ(panel)
+                .AddTo(gameObject);
+        }
+    }
+}

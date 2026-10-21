@@ -1,0 +1,46 @@
+# Storyboard of one playable, written from the screenshots in refs/ and approved before any code.
+# refs/ from a reference ad give the FLOW only; every visual, font, colour and string is the game's own
+# (Playables/art-map.yaml, the game's localization).
+# meta / tuning / texts reach the runtime (virtual:playable-config); beats, level and open questions are for
+# the author and the reviewer. Format: docs/stack/playable-ads.md.
+meta:
+  name: template
+  orientation: portrait            # portrait | landscape | both
+  design: { width: 1080, height: 1920 }
+  store:
+    ios: ''                        # https://apps.apple.com/app/id...
+    android: ''                    # https://play.google.com/store/apps/details?id=...
+
+tuning:
+  maxPlaySec: 25                   # after the first touch, cut to the end card
+  idleHintSec: 4                   # no input this long -> tutorial hand returns
+  tapsToWin: 3
+
+texts:                             # '@key' or '@key|arg0' = the game's own string; literal only if it has none
+  hook: Can you solve it?
+  cta: PLAY NOW
+  win: Well done!
+
+beats:
+  - id: hook
+    ref: refs/01-hook.png
+    shows: Title over the board, hand taps the center
+    waits_for: first tap
+  - id: play
+    ref: refs/02-play.png
+    shows: each tap pops the circle; tuning.tapsToWin taps win
+    on_idle: hand returns after tuning.idleHintSec
+  - id: endcard
+    ref: refs/03-endcard.png
+    shows: dimmed board, texts.win, pulsing texts.cta; tap anywhere -> store
+
+level: {}                          # game-specific layout (grid, pieces, path the hand drags)
+
+assets:
+  use: []                          # art-map roles: [ground, cell, hand_1, logo, ...]
+  fonts: []                        # art-map font keys
+  unity: {}                        # one-off game files not in the art map: name: Assets/... (or x.png#SpriteName)
+  data: {}                         # name: Assets/_Dev/Data/Levels/level_01.json
+  overrides: {}                    # this playable only: name: { maxSize, format: webp|png|jpg, quality, bitrate }
+
+open_questions: []                 # what the screenshots leave unclear; resolved before build

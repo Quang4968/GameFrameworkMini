@@ -1,0 +1,81 @@
+{
+  "verifiedAt": "2026-10-14",
+  "targetBytes": 3000000,
+  "networks": {
+    "applovin": {
+      "format": "single-html",
+      "maxBytes": 5000000,
+      "cta": "mraid.open(storeUrl)",
+      "requires": [
+        "mraid.open",
+        "mraid.getState",
+        "viewableChange"
+      ],
+      "rules": [
+        "single index.html, every resource inlined (base64), no external network calls",
+        "MRAID 2.0: wait for 'ready' (or getState() != 'loading') before any MRAID call",
+        "timer and audio start only after the first user interaction",
+        "no auto-redirect to the store; works in portrait and landscape"
+      ],
+      "test": "AppLovin Playable Preview",
+      "source": "https://support.axon.ai/en/app-discovery/creatives/best-practices-and-guidelines"
+    },
+    "unity": {
+      "format": "single-html",
+      "maxBytes": 5000000,
+      "cta": "mraid.open(storeUrl)",
+      "requires": [
+        "mraid.open",
+        "mraid.getState",
+        "viewableChange"
+      ],
+      "rules": [
+        "single minified index.html, inlined, no links to other files",
+        "MRAID 3.0: start content only after viewableChange(true)",
+        "no XHR; no auto-redirect; never cover the close button",
+        "works in portrait and landscape"
+      ],
+      "test": "Unity Ads Ad Testing app",
+      "source": "https://docs.unity.com/grow/acquire/creatives/playable/specifications"
+    },
+    "mintegral": {
+      "format": "single-html",
+      "maxBytes": 5000000,
+      "cta": "window.install()",
+      "requires": [
+        "gameReady",
+        "gameEnd",
+        "install"
+      ],
+      "rules": [
+        "call gameReady() once loaded, gameEnd() when the end card shows, install() on CTA",
+        "the host starts the ad through window.gameStart()",
+        "single HTML or zip (mintegral.zip > mintegral/mintegral.html); callback names unconfirmed from Mintegral's own doc: check in the Mintegral playable test tool"
+      ],
+      "test": "Mintegral playable test tool",
+      "source": "https://docs.lunalabs.io/docs/playable/ad-networks/mintegral"
+    },
+    "google": {
+      "format": "zip",
+      "maxBytes": 5000000,
+      "maxFiles": 512,
+      "cta": "ExitApi.exit()",
+      "requires": [
+        "ExitApi.exit",
+        "exitapi.js",
+        "ad.orientation"
+      ],
+      "allowedUrls": [
+        "https://tpc.googlesyndication.com/pagead/gadgets/html5/api/exitapi.js"
+      ],
+      "rules": [
+        "zip <= 5MB, <= 512 files, relative paths only",
+        "head carries exitapi.js and <meta name=\"ad.orientation\">",
+        "no localStorage, no external fonts except Google Fonts, UTF-8 text",
+        "audio only after the first interaction"
+      ],
+      "test": "Google Ads HTML5 Validator (For App Campaigns)",
+      "source": "https://support.google.com/google-ads/answer/9981650"
+    }
+  }
+}

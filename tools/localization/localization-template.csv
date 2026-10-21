@@ -1,0 +1,6 @@
+key,note,en
+# Common,,
+common.on,Settings switch state,ON
+common.off,Settings switch state,OFF
+common.level,{0} = level number,Level {0}
+common.next,Button,Next

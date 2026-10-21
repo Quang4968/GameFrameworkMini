@@ -1,0 +1,23 @@
+using <Game>.Core.Services;
+using <Game>.Game.Data;
+using <Game>.Game.Services;
+using VContainer;
+
+namespace <Game>.Game.Installers
+{
+    // Shared registration for every scene that hosts <Name>; scopes call this instead of copying
+    // the block, so the scenes cannot drift apart.
+    public static class <Name>Installer
+    {
+        const int DefaultStarting<Property> = 0;   // used when the scene left the asset empty
+
+        public static void Register<Name>(this IContainerBuilder builder, <Name>SettingsSO settings)
+        {
+            var starting = settings != null ? settings.Starting<Property> : DefaultStarting<Property>;
+
+            builder.Register<I<Name>Service>(_ => new PlayerPrefs<Name>Service(starting), Lifetime.Singleton);
+
+            if (settings != null) builder.RegisterInstance(settings);
+        }
+    }
+}

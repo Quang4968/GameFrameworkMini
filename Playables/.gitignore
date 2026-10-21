@@ -1,0 +1,5 @@
+node_modules/
+dist/
+# Pulled from the Unity project by npm run pull / assets: the project stays the only source.
+**/assets/
+**/.last-sizes.json

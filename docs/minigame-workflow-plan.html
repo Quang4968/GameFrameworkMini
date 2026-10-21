@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Minigame Workflow Plan</title>
+<style>
+  :root {
+    --bg: #f7f7f5; --surface: #ffffff; --text: #1f2328; --muted: #5d6470;
+    --border: #e3e3df; --accent: #2f6fde; --accent-soft: #e8f0fd;
+    --drop: #c2410c; --drop-soft: #fdeee6; --keep: #15803d; --keep-soft: #e6f6ec;
+    --warn: #a16207; --warn-soft: #fdf6e3; --code-bg: #f0f0ec;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16181c; --surface: #1e2126; --text: #e6e8eb; --muted: #9aa1ab;
+      --border: #30343b; --accent: #6ea0ff; --accent-soft: #1f2b44;
+      --drop: #fb923c; --drop-soft: #3a2418; --keep: #4ade80; --keep-soft: #173323;
+      --warn: #facc15; --warn-soft: #3a3315; --code-bg: #2a2e35;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #16181c; --surface: #1e2126; --text: #e6e8eb; --muted: #9aa1ab;
+    --border: #30343b; --accent: #6ea0ff; --accent-soft: #1f2b44;
+    --drop: #fb923c; --drop-soft: #3a2418; --keep: #4ade80; --keep-soft: #173323;
+    --warn: #facc15; --warn-soft: #3a3315; --code-bg: #2a2e35;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 880px; margin: 0 auto; padding: 40px 16px 64px; }
+  h1 { font-size: 28px; line-height: 1.25; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 40px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 16px; margin: 0 0 8px; }
+  .lede { color: var(--muted); margin: 0 0 24px; }
+  code { font: 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; background: var(--code-bg);
+         padding: 1px 5px; border-radius: 4px; overflow-wrap: anywhere; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+          padding: 18px 20px; margin: 12px 0; }
+  .card.warn { border-color: var(--warn); background: var(--warn-soft); }
+  .phase-tag { display: inline-block; font-size: 12px; font-weight: 600; color: var(--accent);
+               background: var(--accent-soft); border-radius: 999px; padding: 2px 10px; margin-bottom: 8px; }
+  ul, ol { padding-left: 22px; margin: 6px 0; }
+  li { margin: 3px 0; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .grid2 .card { margin: 0; }
+  .stages { counter-reset: s; list-style: none; padding: 0; display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
+  .stages li { counter-increment: s; background: var(--bg); border: 1px solid var(--border);
+               border-radius: 8px; padding: 8px 12px 8px 40px; position: relative; margin: 0; }
+  .stages li::before { content: counter(s); position: absolute; left: 10px; top: 8px; width: 22px; height: 22px;
+                       border-radius: 50%; background: var(--accent); color: var(--surface);
+                       font-size: 12px; font-weight: 700; text-align: center; line-height: 22px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface);
+          border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  th, td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  th { font-size: 13px; color: var(--muted); font-weight: 600; }
+  tr:last-child td { border-bottom: none; }
+  .badge { font-size: 12px; font-weight: 700; border-radius: 4px; padding: 2px 8px; white-space: nowrap; }
+  .drop { color: var(--drop); background: var(--drop-soft); }
+  .keep { color: var(--keep); background: var(--keep-soft); }
+  .done { color: var(--keep); background: var(--keep-soft); }
+  .todo { color: var(--warn); background: var(--warn-soft); }
+  .decision { display: grid; grid-template-columns: 32px 1fr; gap: 4px 12px; }
+  .decision .n { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--accent);
+                 color: var(--accent); font-weight: 700; text-align: center; line-height: 24px; }
+  .default { color: var(--keep); font-weight: 600; }
+  .alt { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Plan: workflow <code>/minigame</code> cho TikTok Mini Game</h1>
+  <p class="lede">Dựng một game hoàn chỉnh từ asset có sẵn, nhanh nhất và cần ít input nhất. Người dùng chỉ tham gia ở bước lên plan; sau khi chốt plan, hệ thống chạy loop tự động tới bản build TikTok.</p>
+
+  <div class="card warn">
+    <h3>Việc cần làm trước bản build TikTok đầu tiên</h3>
+    <ul>
+      <li><strong>AppId:</strong> nhập trong <code>TikTokGame/Build Minigame</code> (hiện chưa có <code>StarkBuilderSettings</code>).</li>
+      <li><strong>SdkSettings:</strong> tạo qua cửa sổ SDK settings (<code>Assets/SDKSetting/</code>), điền ad unit rewarded và interstitial.</li>
+      <li><strong>Các mục FIX dung lượng:</strong> IL2CPP OptimizeSize, thêm <code>link.xml</code> trước khi nâng stripping lên Medium, bỏ post-process data trên renderer, dùng <code>Mobile_RPAsset</code>, template <code>PROJECT:Portrait</code>.</li>
+    </ul>
+  </div>
+
+  <h2>1. Một skill duy nhất: <code>/minigame</code></h2>
+  <p>Gồm <code>.claude/skills/minigame/SKILL.md</code>, cùng <code>reference/</code> (mỗi stage một file) và <code>scripts/</code> (quét asset, quản lý state). Skill chạy qua 3 phase.</p>
+
+  <div class="card">
+    <span class="phase-tag">Phase 0 · tự động</span>
+    <h3>Kiểm tra asset (dừng nếu thiếu art)</h3>
+    <ul>
+      <li><strong>Bắt buộc:</strong>
+        <ul>
+          <li>Art gameplay.</li>
+          <li><strong>UI demo cho từng màn hình</strong> (<code>Textures/UI/&lt;Feature&gt;/*demo*</code>): Home, HUD, Win, Lose, Out of lives, Settings… vì framework không còn UI nào.</li>
+          <li>Sprite mà các demo dùng: nút, khung popup, icon coin/tim/booster.</li>
+        </ul>
+        Script <code>asset_scan.py</code> liệt kê và phân loại asset, đối chiếu demo với danh sách màn hình trong <code>popup-behaviours.md</code>, và in ra những gì còn thiếu rồi dừng.</li>
+      <li><strong>Tùy chọn:</strong> GDD (<code>docs/&lt;game&gt;/gdd.*</code>) và SFX (<code>Audio/</code>).
+        <ul>
+          <li>Không có SFX: gắn các <code>AudioCue</code> có sẵn của framework vào clip mặc định nếu có, nếu không thì để im và ghi vào report.</li>
+          <li><strong>VFX:</strong> project không còn vendor pack VFX nào (Epic Toon FX, JMO, Free Slash không có ở đây). VFX dựng bằng Particle System trên sprite của game, hoặc lấy từ pack mà game tự thêm vào.</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="phase-tag">Phase 1 · tương tác duy nhất</span>
+    <h3>Lên plan</h3>
+    <ul>
+      <li>Đọc GDD. Nếu không có GDD thì suy ra từ art. Chỉ đặt câu hỏi mở khi còn mơ hồ (core loop, win/lose, số level, độ dài session, đường cong độ khó).</li>
+      <li>Viết <code>docs/&lt;game&gt;/build-plan.md</code> gồm các mục:
+        <ol>
+          <li>Gameplay spec</li>
+          <li>Level format và generator</li>
+          <li>Cân bằng độ khó: win-rate mục tiêu theo level, các metric mô phỏng, sai số cho phép</li>
+          <li>UI: danh sách màn hình, mỗi màn một demo, theo hợp đồng trong <code>popup-behaviours.md</code></li>
+          <li>Bảng SFX/VFX: sự kiện → cue/effect → asset</li>
+          <li>Tutorial: các bước và <code>E_TutorialId</code></li>
+          <li>SDK: <code>MB_TIKTOK</code>, ad unit, các event tracking qua <code>ITrackingService</code></li>
+          <li>Monet: chỉ rewarded (revive / booster / x2 coin / thêm tim) và interstitial (cap, cooldown, level bắt đầu). Không có IAP, nên phải chốt luôn việc khi người chơi thiếu coin thì mời xem rewarded hay làm mờ nút.</li>
+          <li>Build: ngân sách dung lượng gói, kèm các mục FIX dung lượng</li>
+        </ol>
+      </li>
+      <li><strong>Gom mọi input và quyền ngay trong phase này:</strong>
+        <ul>
+          <li><strong>Input:</strong> appid, ad unit id.</li>
+          <li><strong>Quyền:</strong> tạo <code>SdkSettings</code>, commit, chạy build, sửa <code>ProjectSettings</code> qua <code>eval</code> (các mục FIX dung lượng, template Portrait).</li>
+        </ul>
+        Khi người dùng duyệt, skill ghi một lần vào <code>settings.local.json</code> và <code>Library/Toolkit/unlock</code>.</li>
+      <li>Duyệt xong thì ghi <code>Library/Toolkit/minigame/state.json</code>. Repo không có git: phase này hỏi luôn có <code>git init</code> và commit mốc đầu tiên không.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <span class="phase-tag">Phase 2 · loop tự động</span>
+    <h3>Chạy không hỏi thêm</h3>
+    <ol class="stages">
+      <li>Core gameplay (logic thuần trong Core, kèm test)</li>
+      <li>View gameplay và nối <code>GameplayBridge</code> (<code>MainGameLifetimeScope.RegisterGameplay</code>)</li>
+      <li>Generator, simulator, cân bằng: mô phỏng và chỉnh tham số tới khi đường cong độ khó nằm trong sai số, xuất dữ liệu level và report</li>
+      <li>UI từ demo cho mọi màn hình (Home, HUD, Win, Lose, Out of lives, Buy booster, Settings…): tự duyệt spec, tự so sánh ảnh chụp với demo</li>
+      <li>SFX/VFX</li>
+      <li>Tutorial</li>
+      <li>SDK và tracking (TikTok: <code>MB_TIKTOK</code>, các event qua <code>ITrackingService</code>)</li>
+      <li>Monet: placement rewarded và interstitial theo plan</li>
+      <li>Smoke test trong Play mode</li>
+      <li>Size audit: áp dụng các mục FIX, rồi <code>build-tiktok</code></li>
+      <li>Report cuối</li>
+    </ol>
+    <h3 style="margin-top:16px">Quy tắc của loop</h3>
+    <ul>
+      <li>Mỗi stage kết thúc bằng một cổng kiểm tra: compile, EditMode test, giới hạn 300 dòng. Qua cổng thì tự commit stage đó, nếu repo có git.</li>
+      <li><strong>Mọi <code>unity command</code> đều kèm <code>--project-path</code></strong> và kiểm tra <code>projectPath</code> trước lệnh có thay đổi. Máy thường mở nhiều Editor cùng lúc (project này dùng port 7801).</li>
+      <li><strong>Cơ chế loop:</strong> thêm Stop hook <code>minigame-continue.sh</code>. Khi state còn stage chưa xong, hook trả lượt về kèm lệnh "tiếp stage X".</li>
+      <li>Mỗi stage được thử lại tối đa 3 lần. Nếu vẫn fail thì ghi blocker vào report và chuyển sang stage kế tiếp.</li>
+      <li>Gặp lựa chọn mà plan chưa có thì tự chọn mặc định hợp lý và ghi lại vào <code>docs/&lt;game&gt;/decisions.md</code>.</li>
+    </ul>
+  </div>
+
+  <h2>2. Gỡ bớt hook và quy trình</h2>
+  <div class="table-wrap">
+  <table>
+    <thead><tr><th>Thay đổi</th><th>Hook / skill</th><th>Lý do</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge drop">Bỏ</span></td><td><code>supervisor-events.sh</code>, <code>remind-tests.sh</code>, <code>track-edits.sh</code>, agent <code>supervisor</code></td><td>Hai hook đầu trả lượt về để hỏi nên làm gãy loop. Cổng kiểm tra trong loop thay chỗ cho chúng. <code>track-edits.sh</code> chỉ phục vụ supervisor.</td></tr>
+      <tr><td><span class="badge drop">Bỏ</span></td><td><code>/lead</code>, <code>/design</code></td><td><code>/minigame</code> thay thế chúng. Bước chạy blind lanes chậm.</td></tr>
+      <tr><td><span class="badge keep">Giữ</span></td><td><code>protect-paths.sh</code></td><td>Vẫn bảo vệ SDK/vendor, mở được theo quyền cấp ở Phase 1. Lưu ý: hook chặn cả lệnh shell chỉ nhắc tới đường dẫn được bảo vệ hoặc <code>.meta</code>, nên script nên viết ra file riêng.</td></tr>
+      <tr><td><span class="badge keep">Giữ</span></td><td><code>check-file-length.sh</code></td><td>Chỉ góp ý, không chặn.</td></tr>
+      <tr><td><span class="badge keep">Giữ</span></td><td><code>editor-lock.sh</code></td><td>Chỉ chặn khi có session khác dùng Editor.</td></tr>
+      <tr><td><span class="badge keep">Giữ</span></td><td><code>session-start.sh</code></td><td></td></tr>
+      <tr><td><span class="badge keep">Giữ</span></td><td><code>/task</code>, <code>/verify</code>, <code>/build-tiktok</code>, <code>/ui-from-demo</code>, <code>/new-popup</code>, <code>/playable-ads</code></td><td><code>/minigame</code> gọi lại các skill này bên trong. <code>/task</code> để sửa nhỏ bằng tay.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="card">
+    <h3>Thay đổi trong rules</h3>
+    <ul>
+      <li><code>workflow.md</code>: một lần duyệt <code>/minigame</code> áp dụng cho cả pipeline.</li>
+      <li><code>ui-from-demo.md</code>: trong <code>/minigame</code>, spec và so sánh với demo được tự duyệt.</li>
+      <li><code>unity-editor-cli.md</code>: bắt buộc <code>--project-path</code> cho mọi <code>unity command</code>.</li>
+      <li><code>commits.md</code>: tự commit theo từng stage. Repo không có <code>develop</code>, nên branch cắt từ nhánh có sẵn hoặc từ mốc sau <code>git init</code>.</li>
+      <li><code>arch-reviewer</code>: chỉ chạy một lần ở cuối pipeline thay vì sau mỗi lần verify.</li>
+    </ul>
+    <p style="margin:8px 0 0"><strong>Cập nhật thêm:</strong> <code>CLAUDE.md</code> (dòng tra cứu <code>/minigame</code>), tạo doc mới <code>docs/stack/minigame-pipeline.md</code>.</p>
+  </div>
+
+  <h2>3. Điểm cần chốt</h2>
+  <div class="card decision">
+    <div class="n">1</div>
+    <div><strong>Git.</strong> Thư mục này không có <code>.git</code>, nên không cắt branch hay hoàn tác được.<br>
+      <span class="default">Mặc định:</span> <code>git init</code>, commit mốc hiện tại, rồi làm workflow trên <code>feat/minigame-workflow</code>.<br>
+      <span class="alt">Phương án khác: tiếp tục không có git.</span></div>
+  </div>
+  <div class="card decision">
+    <div class="n">2</div>
+    <div><strong>Mô phỏng cân bằng.</strong><br>
+      <span class="default">Mặc định:</span> C# chạy headless trong EditMode, dùng lại logic trong Core để không phải viết logic game hai lần.<br>
+      <span class="alt">Phương án khác: Python, như <code>docs/jambus/car_allocator_ref.py</code>.</span></div>
+  </div>
+  <div class="card decision">
+    <div class="n">3</div>
+    <div><strong>Hook và skill bị bỏ.</strong><br>
+      <span class="default">Mặc định:</span> xóa hẳn.<br>
+      <span class="alt">Phương án khác: chỉ gỡ khỏi <code>settings.json</code> và giữ lại file.</span></div>
+  </div>
+  <div class="card decision">
+    <div class="n">4</div>
+    <div><strong>Loop.</strong><br>
+      <span class="default">Mặc định:</span> Stop hook để chạy tiếp. Ổn định hơn và chạy được qua các lần nén context.<br>
+      <span class="alt">Phương án khác: <code>/loop</code> tự điều nhịp.</span></div>
+  </div>
+  <div class="card decision">
+    <div class="n">5</div>
+    <div><strong>Thiếu coin khi không có IAP.</strong><br>
+      <span class="default">Mặc định:</span> mời xem rewarded để nhận coin (một placement riêng); khi chưa có quảng cáo thì làm mờ nút.<br>
+      <span class="alt">Phương án khác: chỉ làm mờ nút, không có lối nạp coin.</span></div>
+  </div>
+</main>
+</body>
+</html>
