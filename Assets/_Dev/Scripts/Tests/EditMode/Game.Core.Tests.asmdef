@@ -7,7 +7,6 @@
         "MoodBoost.Sdk.Core",
         "MoodBoost.Sdk.Ads",
         "MoodBoost.Sdk.Tracking",
-        "MoodBoost.Sdk.Notifications",
         "UniTask",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"

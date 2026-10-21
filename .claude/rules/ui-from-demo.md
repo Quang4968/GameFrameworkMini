@@ -17,4 +17,5 @@ had to fix by hand.
 - A sprite the demo needs and the project lacks is asked for, never substituted.
 - The user approves the spec (asset list, layout, text and button tables) before the build, and sees
   the build only after a side-by-side compare with the demo passes row by row; the report carries
-  that image.
+  that image. Inside a `/minigame` run the approved build plan approves the spec; the compare still
+  gates every screen.

@@ -1,0 +1,64 @@
+using System.Globalization;
+using System.IO;
+using System.Text;
+using <Game>.Core.GameLogic.<Game>;
+using NUnit.Framework;
+
+namespace <Game>.Core.Tests.<Game>
+{
+    // Measures every level band against the build plan's win-rate targets and writes the curve the
+    // tuning loop reads. Explicit: it plays thousands of games, so /verify does not run it.
+    [Explicit, Category("Balance")]
+    public sealed class BalanceReportTests
+    {
+        const string ReportPath = "Library/Toolkit/minigame/balance.csv";
+
+        // From the build plan's Difficulty section: first level, last level, target win rate.
+        static readonly (int From, int To, double Target)[] Bands =
+        {
+            <Bands>
+        };
+
+        const double Tolerance = <Tolerance>;
+        const int RunsPerLevel = <RunsPerLevel>;
+        const double BotSkill = <BotSkill>;
+        const int MoveCap = <MoveCap>;
+
+        [Test]
+        public void EveryBand_HitsItsTargetWinRate()
+        {
+            var csv = new StringBuilder("band_from,band_to,target,measured,avg_moves,runs\n");
+            var misses = new StringBuilder();
+
+            foreach (var band in Bands)
+            {
+                int wins = 0, moves = 0, runs = 0;
+                for (var level = band.From; level <= band.To; level++)
+                {
+                    var data = <LoadLevel>(level);
+                    for (var seed = 0; seed < RunsPerLevel; seed++)
+                    {
+                        var result = LevelSimulator.Run(data, BotSkill, level * 7919 + seed, MoveCap);
+                        if (result.Won) wins++;
+                        moves += result.Moves;
+                        runs++;
+                    }
+                }
+
+                var rate = runs == 0 ? 0 : (double)wins / runs;
+                csv.AppendLine(string.Join(",", band.From, band.To,
+                    band.Target.ToString("0.000", CultureInfo.InvariantCulture),
+                    rate.ToString("0.000", CultureInfo.InvariantCulture),
+                    (runs == 0 ? 0 : moves / runs).ToString(CultureInfo.InvariantCulture), runs));
+
+                if (System.Math.Abs(rate - band.Target) > Tolerance)
+                    misses.AppendLine($"levels {band.From}-{band.To}: target {band.Target:0.00}, measured {rate:0.00}");
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(ReportPath));
+            File.WriteAllText(ReportPath, csv.ToString());
+
+            Assert.IsEmpty(misses.ToString(), "Bands outside tolerance:\n" + misses);
+        }
+    }
+}

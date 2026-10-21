@@ -27,8 +27,8 @@ namespace Game.Core.Tests.Architecture
         // The SDK surface game code may reference; every other MoodBoost.Sdk.* assembly is a vendor provider.
         public static readonly string[] SdkFacadeAssemblies =
         {
-            "MoodBoost.Sdk.Core", "MoodBoost.Sdk.Ads", "MoodBoost.Sdk.Tracking", "MoodBoost.Sdk.Iap",
-            "MoodBoost.Sdk.Notifications", "MoodBoost.Sdk.Haptics", "MoodBoost.Sdk.Unity",
+            "MoodBoost.Sdk.Core", "MoodBoost.Sdk.Ads", "MoodBoost.Sdk.Tracking", "MoodBoost.Sdk.Haptics",
+            "MoodBoost.Sdk.Unity",
         };
 
         // SDK assemblies allowed to know VContainer: the installer layer and its Editor tools.

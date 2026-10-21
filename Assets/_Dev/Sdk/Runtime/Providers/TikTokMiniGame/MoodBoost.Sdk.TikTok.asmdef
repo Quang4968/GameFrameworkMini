@@ -1,0 +1,25 @@
+{
+    "name": "MoodBoost.Sdk.TikTok",
+    "rootNamespace": "MoodBoost.Sdk.Ads.Mediation",
+    "references": [
+        "MoodBoost.Sdk.Core",
+        "MoodBoost.Sdk.Ads",
+        "MoodBoost.Sdk.Haptics",
+        "MoodBoost.Sdk.Tracking",
+        "UniTask"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "WebGL"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "MB_TIKTOK"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

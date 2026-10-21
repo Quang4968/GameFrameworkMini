@@ -8,7 +8,7 @@ here=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 HOOK_INPUT=$(cat)
 cmd=$(json_get '.tool_input.command')
-printf '%s' "$cmd" | grep -q 'unity command run_tests' || exit 0
+printf '%s' "$cmd" | grep -q 'unity command.*run_tests' || exit 0
 
 root=$(repo_root)
 mkdir -p "$root/Library/Toolkit"

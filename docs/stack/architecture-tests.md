@@ -30,7 +30,7 @@ breaks the compiler cannot see. Run with `unity command run_tests --mode EditMod
 | `raw-instantiate` | `Instantiate<(`, `Object.Instantiate`, `GameObject.Instantiate` | Core, Game | pool via `IObjectPoolService`; `resolver.Instantiate` for `[Inject]` prefabs |
 | `system-clock` | `DateTime[Offset].UtcNow/Now/Today` | Core, Game (exempt: `ClockServiceFile`) | inject `IClockService` |
 | `core-unity-api` | `MonoBehaviour.`/`GameObject.`/`PlayerPrefs.`/`Debug.`/`Time.`..., `: MonoBehaviour`, `using VContainer/LitMotion/Cysharp/R3/DarkTonic/MoodBoost/UnityEngine.` | Core only | move to Game behind a `Core/Services` interface |
-| `vendor-sdk-namespace` | `using Firebase`, `Unity.Services.LevelPlay`, `UnityEngine.Purchasing`, `Tenjin`, `AdjustSdk`, `GoogleMobileAds`, provider `MoodBoost.Sdk.*` | Core, Game | the SDK facade interfaces |
+| `vendor-sdk-namespace` | `using Firebase`, `Unity.Services.LevelPlay`, `UnityEngine.Purchasing`, `Tenjin`, `AdjustSdk`, `GoogleMobileAds`, `TTSDK`, provider namespaces `MoodBoost.Sdk.{Ads.Mediation,Ads.Providers,Tracking.Providers,Haptics.Providers}` | Core, Game | the SDK facade interfaces |
 | `interface-prefix` | `interface I_Foo` | all | `IFoo` |
 | `enum-prefix` | `enum E_Foo` | all | `Foo` |
 | `underscore-field` | a field declared `_foo` | all | `foo` (+ `[FormerlySerializedAs("_foo")]` when serialized) |
@@ -54,8 +54,8 @@ breaks the compiler cannot see. Run with `unity command run_tests --mode EditMod
 | `ScriptsRoot` | folder scanned for `.cs`, relative to the project root | project card *Scripts* |
 | `MaxFileLines` | 300 | fixed |
 | `CoreAssembly`, `GameAssembly`, `GameAssemblyPrefix` | `<Game>.Core`, `<Game>.Game`, `<Game>.` | project card *Assemblies* |
-| `SdkAssemblyPrefix`, `SdkFacadeAssemblies`, `SdkDiAssemblies`, `SdkForbiddenAssemblyPrefixes` | the SDK surface game code may see | `Assets/SDK/README.md`; reconcile in `/sdk-update` |
-| `VendorAssemblyPrefixes` | third-party SDKs only a provider may name | `/sdk-update` |
+| `SdkAssemblyPrefix`, `SdkFacadeAssemblies`, `SdkDiAssemblies`, `SdkForbiddenAssemblyPrefixes` | the SDK surface game code may see | `docs/stack/sdk.md`; update when an SDK assembly is added or removed |
+| `VendorAssemblyPrefixes` | third-party SDKs only a provider may name | add a vendor when its provider is added |
 | `PoolServiceFile`, `ClockServiceFile` | the two exempt files | fixed unless renamed |
 | `RuntimeFolders`, `CoreFolders`, `AllFolders` | rule scopes | fixed |
 

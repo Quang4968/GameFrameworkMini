@@ -1,0 +1,21 @@
+{
+    "name": "MoodBoost.Sdk.Editor",
+    "rootNamespace": "MoodBoost.Sdk.Editor",
+    "references": [
+        "MoodBoost.Sdk.Core",
+        "MoodBoost.Sdk.Ads",
+        "MoodBoost.Sdk.Tracking",
+        "MoodBoost.Sdk.Unity"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

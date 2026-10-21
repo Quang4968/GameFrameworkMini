@@ -21,6 +21,7 @@ Commits:
   bodies, trailers, branch names, code comments or documentation unless explicitly requested.
   No `Co-Authored-By` trailers.
 - Commit only when asked, on the feature branch. Stage the paths this task changed, one by one.
+  An approved `/minigame` plan asks for one commit per stage on `feat/<slug>`; never a push or merge.
 
 Examples: `feat(popup): add pause dialog`, `fix(input): prevent duplicate tap events`,
 `chore(deps): update addressables package`.

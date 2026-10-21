@@ -1,0 +1,39 @@
+using System;
+
+namespace <Game>.Core.GameLogic.<Game>
+{
+    // Plays one level to the end with the same use cases the board view calls, so a measured win
+    // rate is the win rate a player meets. Pure and seeded: the same seed replays the same game.
+    public static class LevelSimulator
+    {
+        public readonly struct SimResult
+        {
+            public readonly bool Won;
+            public readonly int Moves;
+
+            public SimResult(bool won, int moves)
+            {
+                Won = won;
+                Moves = moves;
+            }
+        }
+
+        // moveCap ends a run the bot cannot finish (a loop, an unwinnable state) as a loss.
+        public static SimResult Run(<Level> level, double skill, int seed, int moveCap)
+        {
+            var random = new Random(seed);
+            var state = <StartUseCase>.Execute(level);
+
+            for (var moves = 0; moves < moveCap; moves++)
+            {
+                if (<OutcomeRules>.IsWon(state)) return new SimResult(true, moves);
+                if (<OutcomeRules>.IsLost(state)) return new SimResult(false, moves);
+
+                var move = <Game>Bot.Choose(state, skill, random);
+                state = <MoveUseCase>.Execute(state, move);
+            }
+
+            return new SimResult(false, moveCap);
+        }
+    }
+}
