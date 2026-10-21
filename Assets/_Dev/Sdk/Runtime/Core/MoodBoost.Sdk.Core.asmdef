@@ -1,0 +1,16 @@
+{
+    "name": "MoodBoost.Sdk.Core",
+    "rootNamespace": "MoodBoost.Sdk",
+    "references": [
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

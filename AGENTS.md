@@ -28,7 +28,7 @@ listen on the interfaces behind it. Porting steps: `docs/stack/new-project-check
 | PlayerPrefs keys | `"Game.<Name>"` |
 | Menu roots | `CreateAssetMenu` and `MenuItem` under `Game/` |
 | Scenes | `Splash` → `Boot` → `HomeScene` → `MainGame` (`Game/SceneFlow/GameScenes.cs`) |
-| SDK | **Not in this repo.** Added per game as a git submodule at `Assets/SDK/` (MoodBoost facade assemblies `MoodBoost.Sdk.{Core,Ads,Tracking,Iap,Notifications,Unity}`); the framework does not compile until it is there. Config `Assets/SDKSetting/` is created per game by the SDK settings window; every scope calls `SdkSystemInstaller.RegisterSdkSystem`. **TikTok Mini Game only**: WebGL target, the one define `MB_TIKTOK` (TTSDK in `Assets/Plugins/com.tiktok.minigame`); no mobile vendor SDK, IAP, notifications or consent popup, and every other target's defines stay empty |
+| SDK | `Assets/_Dev/Sdk/`, the project's own TikTok-only copy (assemblies `MoodBoost.Sdk.{Core,Ads,Tracking,Haptics,Unity,TikTok,Editor}`; doc `docs/stack/sdk.md`). Config `Assets/SDKSetting/` is created per game by the SDK settings window; every scope calls `SdkSystemInstaller.RegisterSdkSystem`. **TikTok Mini Game only**: WebGL target, the one define `MB_TIKTOK` (TTSDK in `Assets/Plugins/com.tiktok.minigame`); no mobile vendor SDK, IAP, notifications or consent popup, and every other target's defines stay empty |
 | Pool catalogs | `Assets/_Dev/Data/PoolCatalog.asset` (MainGame), `HomePoolCatalog.asset` (Home); registered by `ObjectPoolInstaller.RegisterObjectPool` |
 | Index-stored enums (append only) | `PopupId`, `AudioCue`, `HapticCue`, `HapticProfile`, `BoosterType`, `GameFeature`, `E_TutorialId` |
 | Reference implementations | `Game/Installers/LifeSystemInstaller.cs`, `Game/Services/PlayerPrefsCoinService.cs` |
@@ -67,6 +67,7 @@ Read the doc before the code (protocol in `.claude/rules/workflow.md`). First ma
 | scene flow, which installer each scene calls, the GameplayBridge seam | `ARCHITECTURE.md` |
 | `/minigame`, its stages, `state.py`, `minigame-continue.sh`, building a game from its assets | `docs/stack/minigame-pipeline.md` |
 | `.claude/hooks/`, `.claude/agents/`, `/retro`, the Editor lock | `docs/stack/agent-workflow.md` |
+| the SDK: `Assets/_Dev/Sdk/`, `SdkSettings`, `SdkProviderCatalog`, ads, tracking, haptics, TTSDK | `docs/stack/sdk.md` |
 | a new system, layering, DI per scene, pooling, R3/UniTask/LitMotion patterns, Editor CLI, doc format, branches, porting the template, building UI from a demo | `docs/stack/` (`adding-a-system.md`, `architecture.md`, `reactive-and-motion.md`, `unity-editor-cli.md`, `doc-template.md`, `git-workflow.md`, `new-project-checklist.md`, `playable-ads.md`, `ui-from-demo.md`) |
 
 <!-- .claude/rules/architecture.md -->
@@ -103,9 +104,9 @@ most; the rest show up as a dead button or a null field.
   disables that feature instead of the scene.
 - An enum an asset stores by index (the project card lists them) takes new values appended at the
   end only; inserting shifts every later asset entry onto the wrong item.
-- Game code uses the SDK facade interfaces only (`IAdService`, `ITrackingService`, `IIapService`,
-  `IRemoteConfigService`, `INotificationService`), registered in every scope; never a vendor
-  namespace. Reference: `Assets/SDK/README.md`.
+- Game code uses the SDK facade interfaces only (`IAdService`, `ITrackingService`, `IHapticsService`,
+  `IRemoteConfigService`), registered in every scope; never a vendor namespace (`TTSDK` lives only
+  in the SDK's TikTok provider). Reference: `docs/stack/sdk.md`.
 
 <!-- .claude/rules/async-reactive-motion.md -->
 
@@ -380,9 +381,9 @@ dedicated command or `eval`. Long form and `eval` recipes: `docs/stack/unity-edi
   a `/minigame` run, `/verify --no-review` per stage and the review once at the end. A red
   architecture test is a code bug, never a baseline edit.
 - Update the system's doc in the same change that alters its behaviour; no parallel doc set.
-- `Assets/SDK/`, `Assets/Plugins/`, `Assets/Packages/`, `Assets/TextMesh Pro/`, vendor folders,
-  `.meta` files, `Packages/` and `ProjectSettings/` are read-only; a hook blocks edits with the
-  reason. SDK changes happen in the SDK repo and arrive through `/sdk-update`.
+- `Assets/Plugins/`, `Assets/Packages/`, `Assets/TextMesh Pro/`, vendor folders, `.meta` files,
+  `Packages/` and `ProjectSettings/` are read-only; a hook blocks edits with the reason. The SDK in
+  `Assets/_Dev/Sdk/` belongs to the project and is edited like game code (`docs/stack/sdk.md`).
 - Generated code must be indistinguishable from hand-written code: module namespace, naming,
   formatting, placement. No authorship banners, generated-code markers, prompt transcripts, task
   summaries, backup files, or files and folders named after an agent or model.

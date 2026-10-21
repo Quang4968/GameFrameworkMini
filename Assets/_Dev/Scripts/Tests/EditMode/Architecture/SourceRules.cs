@@ -53,8 +53,8 @@ namespace Game.Core.Tests.Architecture
                 CoreFolders),
 
             new SourceRule("vendor-sdk-namespace",
-                @"\busing\s+(?:Unity\.Services\.LevelPlay|Firebase|UnityEngine\.Purchasing|Tenjin|AdjustSdk|GoogleMobileAds|TTSDK|Solo\.MOST_IN_ONE|MoodBoost\.Sdk\.(?:Ads\.LevelPlay|TikTok|Haptics\.Providers|Tracking\.Firebase|Tracking\.Crashlytics|Attribution\.Tenjin|Attribution\.Adjust|Iap\.Unity|Notifications\.Unity|Notifications\.Firebase|RemoteConfig\.Firebase))\b",
-                "Game code talks to the SDK facade (IAdService, ITrackingService, IIapService...), never to a vendor.",
+                @"\busing\s+(?:Unity\.Services\.LevelPlay|Firebase|UnityEngine\.Purchasing|Tenjin|AdjustSdk|GoogleMobileAds|TTSDK|Solo\.MOST_IN_ONE|MoodBoost\.Sdk\.(?:TikTok|Ads\.Mediation|Ads\.Providers|Tracking\.Providers|Haptics\.Providers))\b",
+                "Game code talks to the SDK facade (IAdService, ITrackingService, IHapticsService...), never to a vendor.",
                 RuntimeFolders),
 
             new SourceRule("interface-prefix",

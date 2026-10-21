@@ -16,8 +16,9 @@ those folders copy verbatim; everything game-specific lives in the project card 
   Playable ads come along as `Playables/{_engine,_template,networks.json,package.json,package-lock.json,
   tsconfig.json,.gitignore}` (never a game's `art-map.yaml`, `_game/` kit or `Playables/<playable>/` folders);
   see [playable-ads.md](playable-ads.md).
-- The SDK is a git submodule at `Assets/SDK/`; its per-game config lives outside it in
-  `Assets/SDKSetting/` (created by the SDK settings window, never copied between games).
+- The SDK comes along as `Assets/_Dev/Sdk/` (TikTok-only, owned by the project); its per-game config
+  lives outside it in `Assets/SDKSetting/` (created by the SDK settings window, never copied between
+  games).
 - `ArchitectureBaseline` starts empty. The first `/verify` must be green before the first feature.
 - `grep -rn <OldGame> .claude docs/stack` must print nothing when you are done.
 
@@ -29,11 +30,9 @@ those folders copy verbatim; everything game-specific lives in the project card 
    Shaders,Textures}/`; `Scripts/{Core,Game,Editor,Tests}` with four asmdefs `Game.Core`,
    `Game.Game`, `Game.Editor`, `Game.Core.Tests` (`rootNamespace` matching). SDK-generated code
    already targets `Assets/_Dev/`.
-2. **SDK**: `git submodule add <sdk-repo-url> Assets/SDK`; keep `Assets/SDK.meta` in the game repo.
-   Open the SDK settings window to create `Assets/SDKSetting/`; enable modules there (it toggles the
-   `MB_*` define symbols; do not edit Player Settings by hand). Follow "Dropping it into a new
-   project" in `Assets/SDK/README.md`. Skills the SDK ships (`build-tiktok`) come over as symlinks
-   in the `.claude/` copy set; `ls -L .claude/skills/build-tiktok` lists them once the submodule is in.
+2. **SDK**: `Assets/_Dev/Sdk/` is copied with the rest of `Assets/_Dev/`. Open **MoodBoost > SDK
+   Settings** to create `Assets/SDKSetting/`, and **MoodBoost > SDK Modules** to turn `MB_TIKTOK` on
+   (it writes the WebGL define; do not edit Player Settings by hand). Setup steps: `docs/stack/sdk.md`.
    TikTok Mini Game only: switch the target to WebGL, **MoodBoost > TikTok Mini Game > Install
    TTSDK**, enable only `MB_TIKTOK` in SDK Modules, fill the TikTok block (appid, rewarded and
    interstitial ids) in `SdkSettings`. No mobile vendor SDK, MMP or IAP is imported.
@@ -44,7 +43,7 @@ those folders copy verbatim; everything game-specific lives in the project card 
    `PoolServiceFile`, `ClockServiceFile`; change the `namespace` line of the seven test files to
    `Game.Core.Tests.Architecture` (`sed -i 's/<Old>.Core.Tests/Game.Core.Tests/'`); update the
    Tests asmdef `references`; empty both dictionaries in `ArchitectureBaseline.cs`. Update
-   `SdkFacadeAssemblies` / `VendorAssemblyPrefixes` if the SDK ref changed (`/sdk-update` does this).
+   `SdkFacadeAssemblies` / `VendorAssemblyPrefixes` if the SDK's assemblies changed.
 5. **Scenes**: `GameScenes` constants + Build Settings list; one `LifetimeScope` per scene, each
    calling the SDK installer and `RegisterObjectPool` with its own `PoolCatalogSO`; Boot runs the
    `IBootStep`s. Boot also calls `R3.ObservableSystem.RegisterUnhandledExceptionHandler(Debug.LogException)`.
@@ -76,7 +75,7 @@ those folders copy verbatim; everything game-specific lives in the project card 
 | PlayerPrefs keys | `"Game.<Name>"` |
 | Menu roots | `CreateAssetMenu` and `MenuItem` under `Game/` |
 | Scenes | `Splash` → `Boot` → `Home` → `Main` (`Game/SceneFlow/GameScenes.cs`) |
-| SDK | `Assets/SDK/` (submodule, read-only); config `Assets/SDKSetting/`; every scope calls `<SdkInstaller>` |
+| SDK | `<Root>/Sdk/` (project-owned, TikTok-only); config `Assets/SDKSetting/`; every scope calls `<SdkInstaller>` |
 | Pool catalogs | `Assets/_Dev/Data/PoolCatalog.asset`; registered by `ObjectPoolInstaller.RegisterObjectPool` |
 | Index-stored enums (append only) | `PopupId`, `AudioCue`, `HapticCue`, `HapticProfile`, ... |
 | Reference implementations | `Game/Installers/<Feature>Installer.cs`, `Game/Services/PlayerPrefs<Feature>Service.cs` |

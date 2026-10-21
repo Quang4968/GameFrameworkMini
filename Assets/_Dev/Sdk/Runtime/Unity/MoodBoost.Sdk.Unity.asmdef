@@ -1,0 +1,22 @@
+{
+    "name": "MoodBoost.Sdk.Unity",
+    "rootNamespace": "MoodBoost.Sdk.Unity",
+    "references": [
+        "MoodBoost.Sdk.Core",
+        "MoodBoost.Sdk.Ads",
+        "MoodBoost.Sdk.Tracking",
+        "MoodBoost.Sdk.TikTok",
+        "MoodBoost.Sdk.Haptics",
+        "UniTask",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

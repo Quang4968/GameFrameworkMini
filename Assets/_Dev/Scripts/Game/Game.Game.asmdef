@@ -18,8 +18,6 @@
         "MoodBoost.Sdk.Core",
         "MoodBoost.Sdk.Ads",
         "MoodBoost.Sdk.Tracking",
-        "MoodBoost.Sdk.Iap",
-        "MoodBoost.Sdk.Notifications",
         "MoodBoost.Sdk.Unity"
     ],
     "includePlatforms": [],

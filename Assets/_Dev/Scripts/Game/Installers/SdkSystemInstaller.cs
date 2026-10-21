@@ -36,8 +36,7 @@ namespace Game.Game.Installers
         // AdPolicySettings' call, not the call site's.
         public const string LevelCompletePlacement = "level_complete";
 
-        // A TikTok Mini Game has no IAP, notifications or consent popup: the SDK keeps those layers in their empty
-        // implementations, so IIapService and INotificationService still resolve and report not ready.
+        // A TikTok Mini Game has no IAP, notifications or consent popup: the SDK in Assets/_Dev/Sdk carries none.
         public static void RegisterSdkSystem(this IContainerBuilder builder, SdkSettings sdkSettings)
         {
             RemoteConfigDefaults.Set(sdkSettings != null

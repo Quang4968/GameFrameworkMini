@@ -30,6 +30,6 @@ most; the rest show up as a dead button or a null field.
   disables that feature instead of the scene.
 - An enum an asset stores by index (the project card lists them) takes new values appended at the
   end only; inserting shifts every later asset entry onto the wrong item.
-- Game code uses the SDK facade interfaces only (`IAdService`, `ITrackingService`, `IIapService`,
-  `IRemoteConfigService`, `INotificationService`), registered in every scope; never a vendor
-  namespace. Reference: `Assets/SDK/README.md`.
+- Game code uses the SDK facade interfaces only (`IAdService`, `ITrackingService`, `IHapticsService`,
+  `IRemoteConfigService`), registered in every scope; never a vendor namespace (`TTSDK` lives only
+  in the SDK's TikTok provider). Reference: `docs/stack/sdk.md`.

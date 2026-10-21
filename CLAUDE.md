@@ -26,7 +26,7 @@ listen on the interfaces behind it. Porting steps: `docs/stack/new-project-check
 | PlayerPrefs keys | `"Game.<Name>"` |
 | Menu roots | `CreateAssetMenu` and `MenuItem` under `Game/` |
 | Scenes | `Splash` → `Boot` → `HomeScene` → `MainGame` (`Game/SceneFlow/GameScenes.cs`) |
-| SDK | **Not in this repo.** Added per game as a git submodule at `Assets/SDK/` (MoodBoost facade assemblies `MoodBoost.Sdk.{Core,Ads,Tracking,Iap,Notifications,Unity}`); the framework does not compile until it is there. Config `Assets/SDKSetting/` is created per game by the SDK settings window; every scope calls `SdkSystemInstaller.RegisterSdkSystem`. **TikTok Mini Game only**: WebGL target, the one define `MB_TIKTOK` (TTSDK in `Assets/Plugins/com.tiktok.minigame`); no mobile vendor SDK, IAP, notifications or consent popup, and every other target's defines stay empty |
+| SDK | `Assets/_Dev/Sdk/`, the project's own TikTok-only copy (assemblies `MoodBoost.Sdk.{Core,Ads,Tracking,Haptics,Unity,TikTok,Editor}`; doc `docs/stack/sdk.md`). Config `Assets/SDKSetting/` is created per game by the SDK settings window; every scope calls `SdkSystemInstaller.RegisterSdkSystem`. **TikTok Mini Game only**: WebGL target, the one define `MB_TIKTOK` (TTSDK in `Assets/Plugins/com.tiktok.minigame`); no mobile vendor SDK, IAP, notifications or consent popup, and every other target's defines stay empty |
 | Pool catalogs | `Assets/_Dev/Data/PoolCatalog.asset` (MainGame), `HomePoolCatalog.asset` (Home); registered by `ObjectPoolInstaller.RegisterObjectPool` |
 | Index-stored enums (append only) | `PopupId`, `AudioCue`, `HapticCue`, `HapticProfile`, `BoosterType`, `GameFeature`, `E_TutorialId` |
 | Reference implementations | `Game/Installers/LifeSystemInstaller.cs`, `Game/Services/PlayerPrefsCoinService.cs` |
@@ -65,4 +65,5 @@ Read the doc before the code (protocol in `.claude/rules/workflow.md`). First ma
 | scene flow, which installer each scene calls, the GameplayBridge seam | `ARCHITECTURE.md` |
 | `/minigame`, its stages, `state.py`, `minigame-continue.sh`, building a game from its assets | `docs/stack/minigame-pipeline.md` |
 | `.claude/hooks/`, `.claude/agents/`, `/retro`, the Editor lock | `docs/stack/agent-workflow.md` |
+| the SDK: `Assets/_Dev/Sdk/`, `SdkSettings`, `SdkProviderCatalog`, ads, tracking, haptics, TTSDK | `docs/stack/sdk.md` |
 | a new system, layering, DI per scene, pooling, R3/UniTask/LitMotion patterns, Editor CLI, doc format, branches, porting the template, building UI from a demo | `docs/stack/` (`adding-a-system.md`, `architecture.md`, `reactive-and-motion.md`, `unity-editor-cli.md`, `doc-template.md`, `git-workflow.md`, `new-project-checklist.md`, `playable-ads.md`, `ui-from-demo.md`) |

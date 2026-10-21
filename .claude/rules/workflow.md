@@ -22,9 +22,9 @@
   a `/minigame` run, `/verify --no-review` per stage and the review once at the end. A red
   architecture test is a code bug, never a baseline edit.
 - Update the system's doc in the same change that alters its behaviour; no parallel doc set.
-- `Assets/SDK/`, `Assets/Plugins/`, `Assets/Packages/`, `Assets/TextMesh Pro/`, vendor folders,
-  `.meta` files, `Packages/` and `ProjectSettings/` are read-only; a hook blocks edits with the
-  reason. SDK changes happen in the SDK repo and arrive through `/sdk-update`.
+- `Assets/Plugins/`, `Assets/Packages/`, `Assets/TextMesh Pro/`, vendor folders, `.meta` files,
+  `Packages/` and `ProjectSettings/` are read-only; a hook blocks edits with the reason. The SDK in
+  `Assets/_Dev/Sdk/` belongs to the project and is edited like game code (`docs/stack/sdk.md`).
 - Generated code must be indistinguishable from hand-written code: module namespace, naming,
   formatting, placement. No authorship banners, generated-code markers, prompt transcripts, task
   summaries, backup files, or files and folders named after an agent or model.

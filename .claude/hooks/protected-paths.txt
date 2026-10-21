@@ -2,7 +2,6 @@
 # Prefixes are repo-relative; a trailing slash protects the whole folder. Lines starting with # are ignored.
 # Temporary exception: the user lists a prefix in Library/Toolkit/unlock (gitignored).
 # Permanent carve-out: '!prefix|reason' keeps a folder inside a protected one writable ('..' never is).
-Assets/SDK/|Shared MoodBoost SDK (future submodule). Edit it in the SDK repo, then run /sdk-update.
 Assets/SDKSetting/|Live SDK keys and module toggles. Change them through the SDK settings window in the Editor.
 Assets/Plugins/|Third-party plugin code, replaced on update.
 Assets/Packages/|NuGetForUnity output. Change the package version in Assets/packages.config instead.

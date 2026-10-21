@@ -17,10 +17,6 @@ Branch model of a game cloned from the framework. The rules are in `.claude/rule
   meets the others.
 - Azure DevOps refuses a branch named `dev` while `dev/*` branches exist (a ref cannot be both a
   file and a directory); that is why the integration branch is `develop`.
-- `Assets/SDK/` is a git submodule (`.gitmodules` names the SDK repo and its branch); the game repo
-  pins one SDK commit. Clone with `git clone --recurse-submodules`, or run
-  `git submodule update --init` after a plain clone; an empty `Assets/SDK/` means that step was
-  skipped. Only `/sdk-update` moves the pin; `Assets/SDK.meta` stays in the game repo.
 
 **Start from**: `.claude/skills/task/SKILL.md` (step 0), `.claude/skills/finish/SKILL.md`.
 
@@ -53,11 +49,6 @@ origin/develop ──┬──────────────────�
   force-delete, look at `git log develop..<branch>`.
 - **Long-lived branch**: merge `origin/develop` into the feature branch (`git merge origin/develop`)
   when it falls behind; a conflict is cheaper to solve on the feature side.
-- **Submodule on one side of a switch**: a branch cut before `Assets/SDK/` became a submodule
-  tracks the SDK files directly. Switching onto it from a submodule branch is refused ("untracked
-  working tree files would be overwritten"): `git submodule deinit -f Assets/SDK` first, switch,
-  and `git submodule update --init` after coming back. Do it while the Editor is unfocused; the
-  folder is empty in between.
 
 ## Porting
 
